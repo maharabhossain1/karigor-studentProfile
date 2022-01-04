@@ -1,10 +1,25 @@
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import { FiEdit } from "react-icons/fi";
+import { ImCross } from "react-icons/im";
 import "../FormInput/FormInput.css";
+import "./StudentPersonalInfo.css";
 
 export default function StudentPersonalInfo() {
   const [studentInfo, setStudentInfo] = useState("");
+  const [editOption, setEditOption] = useState(true);
+
+  //////////////////////////
+  // Edit Butoons
+  const handleEdit = () => {
+    setEditOption(false);
+  };
+  const handleCancelEdit = () => {
+    setEditOption(true);
+  };
+  //////////////////////////
+  // Input Field control
   const handleOnBlur = (e) => {
     const field = e.target.value;
     const value = e.target.value;
@@ -206,48 +221,76 @@ export default function StudentPersonalInfo() {
   console.log(studentInfo);
   return (
     <Box sx={{ my: 5 }}>
-      <Box>
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={6} sx={{ mx: "auto" }}>
-            <Box className="student-info">
-              {inputArray.map((inputs) => {
-                const { label, id, ...others } = inputs;
-                return (
-                  <div className="input-field" key={id}>
-                    <div>
-                      <label htmlFor="text">{label}</label>
-                      <input
-                        onBlur={handleOnBlur}
-                        defaultValue={studentInfo[inputs.name] || ""}
-                        {...others}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box className="student-info">
-              {inputArray2.map((inputs) => {
-                const { label, id, ...others } = inputs;
-                return (
-                  <div className="input-field" key={id}>
-                    <div>
-                      <label htmlFor="text">{label}</label>
-                      <input
-                        onBlur={handleOnBlur}
-                        defaultValue={studentInfo[inputs.name] || ""}
-                        {...others}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </Box>
-          </Grid>
+      <Grid container>
+        <Grid item xs={12} md={11} sx={{ mx: "auto" }}>
+          <Box>
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={6} sx={{ mx: "auto" }}>
+                <Box className="student-info">
+                  {inputArray.map((inputs) => {
+                    const { label, id, ...others } = inputs;
+                    return (
+                      <div className="input-field" key={id}>
+                        <div>
+                          <label htmlFor="text">{label}</label>
+                          <input
+                            onBlur={handleOnBlur}
+                            defaultValue={studentInfo[inputs.name] || ""}
+                            {...others}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Box className="student-info">
+                  {inputArray2.map((inputs) => {
+                    const { label, id, ...others } = inputs;
+                    return (
+                      <div className="input-field" key={id}>
+                        <div>
+                          <label htmlFor="text">{label}</label>
+                          <input
+                            onBlur={handleOnBlur}
+                            defaultValue={studentInfo[inputs.name] || ""}
+                            {...others}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
         </Grid>
-      </Box>
+        <Grid item xs={12} md={1} sx={{ mx: "auto" }}>
+          <Box sx={{ width: "max-content", mx: "auto" }}>
+            {editOption ? (
+              <Button
+                onClick={handleEdit}
+                variant="contained"
+                className="custom-edit-btn"
+                style={{ fontSize: "1rem", fontWeight: "bold" }}
+              >
+                <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
+                এডিট করুন
+              </Button>
+            ) : (
+              <Button
+                onClick={handleCancelEdit}
+                variant="contained"
+                className="custom-cancel-btn"
+                style={{ fontSize: "1rem", fontWeight: "bold" }}
+              >
+                <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
+              </Button>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

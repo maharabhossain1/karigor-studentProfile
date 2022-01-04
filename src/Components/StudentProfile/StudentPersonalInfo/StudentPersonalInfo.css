@@ -1,0 +1,12 @@
+.custom-edit-btn {
+  background-color: #38a8ff !important;
+}
+.custom-edit-btn:hover {
+  background-color: #007bff !important;
+}
+.custom-cancel-btn {
+  background-color: #eb5757 !important;
+}
+.custom-cancel-btn:hover {
+  background-color: #d44b4b !important;
+}

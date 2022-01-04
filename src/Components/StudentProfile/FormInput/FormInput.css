@@ -4,7 +4,7 @@
   margin-bottom: 20px;
 }
 .input-field label {
-  width: 170px;
+  width: 165px;
   padding: 1vh 0.5vw;
   display: inline-block;
   font-weight: bold;
@@ -12,7 +12,7 @@
 }
 .input-field input {
   height: 50px;
-  width: 60%;
+  width: 55%;
   padding-left: 1vw;
   background: #fafafa;
   border: 2px solid #e5e5e5;
