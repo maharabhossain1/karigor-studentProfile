@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
+import { HiOutlineSave } from "react-icons/hi";
 import "../FormInput/FormInput.css";
 import "./StudentPersonalInfo.css";
 
@@ -291,6 +292,21 @@ export default function StudentPersonalInfo() {
           </Box>
         </Grid>
       </Grid>
+      <Box>
+        {!editOption && (
+          <Button
+            onClick={handleEdit}
+            variant="contained"
+            className="custom-save-btn"
+            style={{ fontSize: "1rem", fontWeight: "bold" }}
+          >
+            <HiOutlineSave
+              style={{ marginRight: "10px", fontSize: "1.5rem" }}
+            />{" "}
+            সেইভ করুন
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 }

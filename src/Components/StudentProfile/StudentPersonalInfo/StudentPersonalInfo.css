@@ -10,3 +10,7 @@
 .custom-cancel-btn:hover {
   background-color: #d44b4b !important;
 }
+
+.custom-save-btn {
+  background-color: #0faf51 !important;
+}
