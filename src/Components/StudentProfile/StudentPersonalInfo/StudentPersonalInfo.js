@@ -219,7 +219,6 @@ export default function StudentPersonalInfo() {
       required: "required",
     },
   ];
-  console.log(studentInfo);
   return (
     <Box sx={{ my: 5 }}>
       <Grid container>
@@ -274,7 +273,6 @@ export default function StudentPersonalInfo() {
                 onClick={handleEdit}
                 variant="contained"
                 className="custom-edit-btn"
-                style={{ fontSize: "1rem", fontWeight: "bold" }}
               >
                 <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
                 এডিট করুন
@@ -284,7 +282,6 @@ export default function StudentPersonalInfo() {
                 onClick={handleCancelEdit}
                 variant="contained"
                 className="custom-cancel-btn"
-                style={{ fontSize: "1rem", fontWeight: "bold" }}
               >
                 <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
               </Button>
@@ -298,7 +295,6 @@ export default function StudentPersonalInfo() {
             onClick={handleEdit}
             variant="contained"
             className="custom-save-btn"
-            style={{ fontSize: "1rem", fontWeight: "bold" }}
           >
             <HiOutlineSave
               style={{ marginRight: "10px", fontSize: "1.5rem" }}

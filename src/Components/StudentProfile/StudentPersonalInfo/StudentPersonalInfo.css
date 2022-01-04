@@ -1,11 +1,19 @@
 .custom-edit-btn {
   background-color: #38a8ff !important;
+  border-radius: 10px !important;
+  margin-bottom: 2vh !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
 }
 .custom-edit-btn:hover {
   background-color: #007bff !important;
 }
 .custom-cancel-btn {
   background-color: #eb5757 !important;
+  border-radius: 10px !important;
+  margin-bottom: 2vh !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
 }
 .custom-cancel-btn:hover {
   background-color: #d44b4b !important;
@@ -13,4 +21,8 @@
 
 .custom-save-btn {
   background-color: #0faf51 !important;
+  border-radius: 10px !important;
+  margin-bottom: 2vh !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
 }
