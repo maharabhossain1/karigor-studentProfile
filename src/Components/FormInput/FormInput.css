@@ -1,0 +1,32 @@
+.input-field {
+  padding: 10px 1vw;
+  margin: auto;
+}
+.input-field label {
+  width: 150px;
+  padding: 1vh 0.5vw;
+  display: inline-block;
+  font-weight: bold;
+  color: #616365;
+}
+.input-field input {
+  height: 40px;
+  width: 65%;
+  padding-left: 1vw;
+  background: #fafafa;
+  border: 2px solid #e5e5e5;
+  border-radius: 5px;
+}
+.input-field input:focus {
+  outline: none !important;
+  border: 2px solid#008ad9;
+}
+input[type="file"] {
+  color: #008ad9;
+}
+
+@media only screen and (max-width: 600px) {
+  .input-field input {
+    width: 100%;
+  }
+}
