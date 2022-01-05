@@ -91,6 +91,7 @@ export default function StudentProfile() {
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
+  console.log(value);
   return (
     <Box sx={{ width: "95%", m: "auto", my: 2 }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

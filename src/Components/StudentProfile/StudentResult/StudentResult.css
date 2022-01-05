@@ -1,0 +1,22 @@
+.reselt-box {
+  background-color: #f2fff7;
+  border-radius: 10px;
+  padding: 1vh 1vw;
+  width: 200px;
+  position: relative;
+  box-shadow: 0px 3px 5px -2px #569274;
+}
+.result-content {
+  text-align: center;
+}
+.result-content p {
+  color: #569274;
+}
+.result-box-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1.7rem;
+  color: #569274;
+  transform: rotate(-45deg);
+}
