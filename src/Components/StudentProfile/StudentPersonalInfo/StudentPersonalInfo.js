@@ -1,4 +1,4 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
@@ -227,6 +227,41 @@ export default function StudentPersonalInfo() {
             <Grid container spacing={1}>
               <Grid item xs={12} md={6} sx={{ mx: "auto" }}>
                 <Box className="student-info">
+                  <Box
+                    sx={{
+                      display: {
+                        xs: "block",
+                        md: "flex",
+                      },
+                      mb: 5,
+                    }}
+                  >
+                    <Box sx={{ width: "165px" }}>
+                      <Typography
+                        style={{
+                          fontsize: "1rem",
+                          fontWeight: "bold",
+                          color: "#616365",
+                          padding: "1vh 1vw",
+                        }}
+                      >
+                        ছাত্রের ছবি
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        width: "max-content",
+                        m: "auto",
+                        border: "1px solid #e5e5e5",
+                      }}
+                    >
+                      <img
+                        style={{ height: "20vh" }}
+                        src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                        alt="student"
+                      />
+                    </Box>
+                  </Box>
                   {inputArray.map((inputs) => {
                     const { label, id, ...others } = inputs;
                     return (
