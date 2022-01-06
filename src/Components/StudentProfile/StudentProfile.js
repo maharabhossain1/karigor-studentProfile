@@ -9,6 +9,7 @@ import StudentResult from "./StudentResult/StudentResult";
 import StudentTransaction from "./StudentTransaction/StudentTransaction";
 import StudentFood from "./StudentFood/StudentFood";
 import StudentHall from "./StudentHall/StudentHall";
+import StudentNotes from "../StudentNotes.js/StudentNotes";
 
 //// helper functions
 function TabPanel(props) {
@@ -87,6 +88,7 @@ export default function StudentProfile() {
     <StudentTransaction />,
     <StudentFood />,
     <StudentHall />,
+    <StudentNotes />,
   ];
   const handleChange = (e, newValue) => {
     setValue(newValue);

@@ -37,9 +37,11 @@ export default function StudentTransaction() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+        <TableHead sx={{ border: "none" }}>
           <TableRow>
-            <TableCell align="center">নাম</TableCell>
+            <TableCell sx={{ fontSize: "1.5rem" }} align="center">
+              নাম
+            </TableCell>
             <TableCell align="center">লেনদেনের ধরণ</TableCell>
             <TableCell align="center">টাকার পরিমান</TableCell>
             <TableCell align="center">ডিস্কাউন্ট</TableCell>

@@ -1,0 +1,30 @@
+.modal-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+}
+
+.add-note-box {
+  width: 70%;
+  margin: auto;
+  padding: 2vh 2vw;
+  background-color: #fff4db;
+  border: 2px solid #eaba63;
+  box-sizing: border-box;
+  border-radius: 15px;
+  text-align: center;
+}
+.add-note-box textarea {
+  width: 80%;
+  min-height: 105px;
+  border: none;
+  border-radius: 15px;
+  padding: 2vh 1vw;
+}

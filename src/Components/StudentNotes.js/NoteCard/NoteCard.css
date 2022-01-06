@@ -1,0 +1,22 @@
+.note-container {
+  width: 16rem;
+  margin: auto;
+  border: 1px solid #c6c6c6;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.note-info {
+  color: #9f9f9f;
+  background: #fafafa;
+  border: 1px solid #c6c6c6;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 4px 10px;
+}
+.note-text {
+  padding: 16px;
+}
+.detail-note {
+  padding: 0px 16px 10px;
+  color: #4d53d9;
+}
