@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
-import { HiOutlineSave } from "react-icons/hi";
+import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
 
 export default function StudentInstituteInfo() {
   const [institutionInfo, setInstitutionInfo] = useState("");
@@ -174,21 +174,28 @@ export default function StudentInstituteInfo() {
               </Button>
             )}
           </Box>
+          <Box sx={{ width: "max-content", mx: "auto" }}>
+            {!editOption && (
+              <Button
+                onClick={handleEdit}
+                variant="contained"
+                className="custom-save-btn"
+              >
+                <HiOutlineSave
+                  style={{ marginRight: "10px", fontSize: "1.5rem" }}
+                />{" "}
+                সেইভ করুন
+              </Button>
+            )}
+          </Box>
         </Grid>
       </Grid>
       <Box>
-        {!editOption && (
-          <Button
-            onClick={handleEdit}
-            variant="contained"
-            className="custom-save-btn"
-          >
-            <HiOutlineSave
-              style={{ marginRight: "10px", fontSize: "1.5rem" }}
-            />{" "}
-            সেইভ করুন
-          </Button>
-        )}
+        <Button className="custom-btn-backward" variant="contained">
+          <HiOutlineArrowLeft
+            style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+          />
+        </Button>
       </Box>
     </Box>
   );
