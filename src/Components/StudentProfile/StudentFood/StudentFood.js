@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Checkbox,
   Paper,
   Table,
