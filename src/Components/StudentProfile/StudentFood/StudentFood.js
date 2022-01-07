@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Checkbox,
   Paper,
   Table,
@@ -11,6 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { HiOutlineArrowLeft } from "react-icons/hi";
 import "./StudentFood.css";
 
 export default function StudentFood() {
@@ -162,6 +164,13 @@ export default function StudentFood() {
             </TableBody>
           </Table>
         </TableContainer>
+      </Box>
+      <Box>
+        <Button className="custom-btn-backward" variant="contained">
+          <HiOutlineArrowLeft
+            style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+          />
+        </Button>
       </Box>
     </Box>
   );
