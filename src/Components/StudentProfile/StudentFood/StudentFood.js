@@ -19,45 +19,105 @@ export default function StudentFood() {
     {
       _id: 1,
       studentName: "Jubair Ahsan",
-      type: "সহকারী হিসাব রক্ষক",
       amount: "25",
     },
     {
       _id: 2,
       studentName: "Jubair Ahsan",
-      type: "সহকারী হিসাব রক্ষক",
       amount: "25",
     },
     {
       _id: 3,
       studentName: "Jubair Ahsan",
-      type: "সহকারী হিসাব রক্ষক",
       amount: "25",
     },
     {
       _id: 4,
       studentName: "Jubair Ahsan",
-      type: "সহকারী হিসাব রক্ষক",
       amount: "25",
     },
   ];
   return (
-    <Box>
-      <Box>input field</Box>
+    <Box sx={{ width: "90%", m: "auto", my: 5 }}>
+      <Box sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}>
+        <input className="dateInput" type="date" /> থেকে{" "}
+        <input className="dateInput" type="date" />
+      </Box>
       <Box>
-        <TableContainer component={Paper} sx={{ width: "80%", m: "auto" }}>
+        <TableContainer component={Paper} sx={{ my: 5 }}>
           <Table aria-label="simple table">
             <TableHead sx={{ border: "none" }}>
               <TableRow>
-                <TableCell sx={{ fontSize: "1.5rem" }} align="center">
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "#616365",
+                  }}
+                  align="center"
+                >
                   তারিখ
                 </TableCell>
-                <TableCell align="center"> মিল-১</TableCell>
-                <TableCell align="center"> মিল-২</TableCell>
-                <TableCell align="center"> মিল-৩</TableCell>
-                <TableCell align="center"> স্পেশাল মিল</TableCell>
-                <TableCell align="center">মোট মিল</TableCell>
-                <TableCell align="center">মোট খরচ </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "#616365",
+                  }}
+                  align="center"
+                >
+                  মিল-১
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "#616365",
+                  }}
+                  align="center"
+                >
+                  মিল-২
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "#616365",
+                  }}
+                  align="center"
+                >
+                  মিল-৩
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "#616365",
+                  }}
+                  align="center"
+                >
+                  স্পেশাল মিল
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "#616365",
+                  }}
+                  align="center"
+                >
+                  মোট মিল
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "#616365",
+                  }}
+                  align="center"
+                >
+                  মোট খরচ{" "}
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
