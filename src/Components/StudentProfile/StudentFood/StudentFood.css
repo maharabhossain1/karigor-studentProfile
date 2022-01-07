@@ -1,0 +1,17 @@
+.table-data-edit-btn,
+.table-data-delete-btn {
+  width: max-content;
+  padding: 10px;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  margin: 0 0.5vw;
+  cursor: pointer;
+}
+.table-data-edit-btn {
+  background-color: #007bff;
+}
+.table-data-delete-btn {
+  background-color: #eb5757;
+}
