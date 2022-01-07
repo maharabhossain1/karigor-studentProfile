@@ -1,7 +1,8 @@
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Button } from "@mui/material";
 import { VscTriangleDown } from "react-icons/vsc";
 import React from "react";
 import "./StudentResult.css";
+import { HiOutlineArrowLeft } from "react-icons/hi";
 
 export default function StudentResult() {
   const resultArray = [
@@ -83,7 +84,7 @@ export default function StudentResult() {
   ];
   return (
     <Box sx={{ my: 5 }}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{ my: 5 }}>
         {resultArray.map((result) => {
           const { year, _id, examType } = result;
           return (
@@ -103,6 +104,13 @@ export default function StudentResult() {
           );
         })}
       </Grid>
+      <Box>
+        <Button className="custom-btn-backward" variant="contained">
+          <HiOutlineArrowLeft
+            style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+          />
+        </Button>
+      </Box>
     </Box>
   );
 }
