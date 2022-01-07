@@ -45,7 +45,7 @@ export default function StudentFood() {
       <Box>
         <TableContainer component={Paper} sx={{ my: 5 }}>
           <Table aria-label="simple table">
-            <TableHead sx={{ border: "none" }}>
+            <TableHead>
               <TableRow>
                 <TableCell
                   sx={{
@@ -125,7 +125,9 @@ export default function StudentFood() {
                 return (
                   <TableRow
                     key={i}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                    }}
                   >
                     <TableCell align="center">{date}</TableCell>
                     <TableCell align="center">
