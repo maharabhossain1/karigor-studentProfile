@@ -1,25 +1,20 @@
-import { Button, Typography, Box } from "@mui/material";
-import React, { useState } from "react";
-import "./Vacation.css";
+import { Box, Button, Typography } from "@mui/material";
+import React from "react";
 
-export default function Vacation({ setVacationData }) {
-  const [vacationDate, setVacationDate] = useState([]);
-
+export default function ChangeHall({ setHall }) {
   const handleCancelVacation = () => {
-    setVacationData(false);
+    setHall(false);
   };
   const handleConfirmVacation = () => {
-    setVacationData(false);
+    setHall(false);
   };
-  ///////////////////////
-  const handleOnBlur = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    const newInfo = { ...vacationDate };
-    newInfo[field] = value;
-    setVacationData(newInfo);
-  };
-
+  // const handleOnBlur = (e) => {
+  //   const field = e.target.name;
+  //   const value = e.target.value;
+  //   const newInfo = { ...vacationDate };
+  //   newInfo[field] = value;
+  //   setVacationData(newInfo);
+  // };
   return (
     <div className="modal-background">
       <Box
@@ -36,7 +31,7 @@ export default function Vacation({ setVacationData }) {
               color: "#616365",
             }}
           >
-            এই ছাত্রের সম্পর্কে নোট যোগ করুন
+            হল পরিবর্তনের সেকশন
           </Typography>
           <Box
             sx={{
@@ -53,15 +48,17 @@ export default function Vacation({ setVacationData }) {
               className="input-field"
               sx={{ width: "80%", textAlign: "center" }}
             >
-              <label htmlFor="text">ছুটির শুরুর তারিখ</label>
-              <input type="date" />
+              <input type="text" name="হলের নাম" placeholder="হলের নাম" />
             </Box>
             <Box
               className="input-field"
               sx={{ width: "80%", textAlign: "center" }}
             >
-              <label htmlFor="date"> ছুটির শেষের তারিখ</label>
-              <input type="date" />
+              <input
+                type="number"
+                nam="roomNumber"
+                placeholder="রুমের নাম্বার"
+              />
             </Box>
           </Box>
         </Box>

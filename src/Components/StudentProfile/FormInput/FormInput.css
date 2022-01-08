@@ -25,7 +25,9 @@
 input[type="file"] {
   color: #008ad9;
 }
-
+input::placeholder {
+  text-align: center;
+}
 @media only screen and (max-width: 600px) {
   .input-field input {
     width: 100%;

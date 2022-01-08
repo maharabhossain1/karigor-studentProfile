@@ -14,6 +14,7 @@ import {
 
 import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import ChangeHall from "./ChangeHall/ChangeHall";
 import Vacation from "./Vacation/Vacation";
 
 export default function StudentHall() {
@@ -215,6 +216,7 @@ export default function StudentHall() {
         </TableContainer>
       </Box>
       {vacationData && <Vacation setVacationData={setVacationData} />}
+      {hall && <ChangeHall setHall={setHall} />}
     </Box>
   );
 }
