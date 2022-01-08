@@ -1,10 +1,10 @@
 import "./App.css";
-import StudentProfile from "./Components/StudentProfile/StudentProfile";
+import StudentProfileSection from "./Pages/StudentProfileSection/index";
 
 function App() {
   return (
     <div>
-      <StudentProfile />
+      <StudentProfileSection />
     </div>
   );
 }

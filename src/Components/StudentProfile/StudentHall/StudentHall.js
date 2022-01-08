@@ -12,31 +12,31 @@ import {
   Typography,
 } from "@mui/material";
 
-import React from "react";
+import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 export default function StudentHall() {
+  const [vacation, setVacation] = useState(false);
+  const [hall, setHall] = useState(false);
+  const handleVacation = () => {
+    setVacation(true);
+  };
+  const handleHall = () => {
+    setHall(true);
+  };
   ////////////////
   const rows = [
     {
       _id: 1,
-      studentName: "Jubair Ahsan",
-      amount: "25",
     },
     {
       _id: 2,
-      studentName: "Jubair Ahsan",
-      amount: "25",
     },
     {
       _id: 3,
-      studentName: "Jubair Ahsan",
-      amount: "25",
     },
     {
       _id: 4,
-      studentName: "Jubair Ahsan",
-      amount: "25",
     },
   ];
   return (
@@ -45,7 +45,9 @@ export default function StudentHall() {
       <Box sx={{ my: 2 }}>
         <Grid container spacing={6}>
           <Grid item md={6}>
-            <Box sx={{ display: "flex", margin: "0px 1vw" }}>
+            <Box
+              sx={{ display: { xs: "block", md: "flex" }, margin: "0px 1vw" }}
+            >
               <Box
                 sx={{
                   color: "#4D53D9",
@@ -82,6 +84,7 @@ export default function StudentHall() {
           </Grid>
           <Grid item md={6} sx={{ textAlign: "center" }}>
             <Button
+              onClick={handleVacation}
               style={{
                 color: "#FFFDFB",
                 backgroundColor: "#0FAF51",
@@ -96,6 +99,7 @@ export default function StudentHall() {
               ছুটির অনুমতি দিন
             </Button>
             <Button
+              onClick={handleHall}
               style={{
                 color: "#FFFDFB",
                 backgroundColor: "#728FB4",
@@ -129,7 +133,7 @@ export default function StudentHall() {
                   }}
                   align="center"
                 >
-                  তারিখ
+                  ছুটি শুরু
                 </TableCell>
                 <TableCell
                   sx={{
@@ -139,7 +143,7 @@ export default function StudentHall() {
                   }}
                   align="center"
                 >
-                  মিল-১
+                  ছুটি শেষ
                 </TableCell>
                 <TableCell
                   sx={{
@@ -149,7 +153,7 @@ export default function StudentHall() {
                   }}
                   align="center"
                 >
-                  মিল-২
+                  কারণ
                 </TableCell>
                 <TableCell
                   sx={{
@@ -159,7 +163,7 @@ export default function StudentHall() {
                   }}
                   align="center"
                 >
-                  মিল-৩
+                  ছুটি শুরু
                 </TableCell>
                 <TableCell
                   sx={{
@@ -169,7 +173,7 @@ export default function StudentHall() {
                   }}
                   align="center"
                 >
-                  স্পেশাল মিল
+                  ছুটি প্রদানকারী
                 </TableCell>
                 <TableCell
                   sx={{
@@ -179,17 +183,7 @@ export default function StudentHall() {
                   }}
                   align="center"
                 >
-                  মোট মিল
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontSize: "1rem",
-                    fontWeight: "bold",
-                    color: "#616365",
-                  }}
-                  align="center"
-                >
-                  মোট খরচ{" "}
+                  মন্তব্য
                 </TableCell>
               </TableRow>
             </TableHead>
