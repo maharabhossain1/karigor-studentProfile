@@ -14,12 +14,13 @@ import {
 
 import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import Vacation from "./Vacation/Vacation";
 
 export default function StudentHall() {
-  const [vacation, setVacation] = useState(false);
+  const [vacationData, setVacationData] = useState(false);
   const [hall, setHall] = useState(false);
   const handleVacation = () => {
-    setVacation(true);
+    setVacationData(true);
   };
   const handleHall = () => {
     setHall(true);
@@ -213,6 +214,7 @@ export default function StudentHall() {
           </Table>
         </TableContainer>
       </Box>
+      {vacationData && <Vacation setVacationData={setVacationData} />}
     </Box>
   );
 }
