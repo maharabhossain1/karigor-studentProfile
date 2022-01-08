@@ -1,10 +1,10 @@
-import { Button, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import "./Vacation.css";
 
 export default function Vacation({ setVacationData }) {
   const [vacationDate, setVacationDate] = useState([]);
+  const [value, setValue] = React.useState(null);
 
   const handleCancelVacation = () => {
     setVacationData(false);
@@ -22,7 +22,7 @@ export default function Vacation({ setVacationData }) {
   };
 
   return (
-    <div className="modal-background" onClick={handleCancelVacation}>
+    <div className="modal-background">
       <Box
         onSubmit={handleConfirmVacation}
         component="form"
@@ -39,12 +39,31 @@ export default function Vacation({ setVacationData }) {
           >
             এই ছাত্রের সম্পর্কে নোট যোগ করুন
           </Typography>
-          <Box>
-            <textarea
-              onBlur={handleOnBlur}
-              name="notes"
-              form="usrform"
-            ></textarea>
+          <Box
+            sx={{
+              width: "95%",
+              m: "auto",
+              my: 4,
+              border: "1px solid rgba(97, 99, 101, 0.2)",
+              py: 6,
+              background: "#FAFAFA",
+              borderRadius: "5px",
+            }}
+          >
+            <Box
+              className="input-field"
+              sx={{ width: "80%", textAlign: "center" }}
+            >
+              <label htmlFor="text">ছুটির শুরুর তারিখ</label>
+              <input type="date" />
+            </Box>
+            <Box
+              className="input-field"
+              sx={{ width: "80%", textAlign: "center" }}
+            >
+              <label htmlFor="date"> ছুটির শেষের তারিখ</label>
+              <input type="date" />
+            </Box>
           </Box>
         </Box>
         {/* ///////////////////////////////// */}
@@ -75,7 +94,6 @@ export default function Vacation({ setVacationData }) {
           <div>
             <Button
               onClick={handleCancelVacation}
-              className="confirm-btn"
               variant="contained"
               style={{
                 verticalAlign: "middle",

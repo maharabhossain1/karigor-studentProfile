@@ -26,7 +26,7 @@ export default function AddNote({ setAddNotes }) {
     setAddNotes(false);
   };
   return (
-    <div className="modal-background" onClick={handleCancelNote}>
+    <div className="modal-background">
       <Box onSubmit={handleConfimAdd} component="form" className="add-note-box">
         <Box>
           <Typography
