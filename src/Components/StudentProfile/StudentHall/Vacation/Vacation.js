@@ -1,6 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
+import "./Vacation.css";
 
 export default function Vacation({ setVacationData }) {
   const [vacationDate, setVacationDate] = useState([]);
@@ -25,11 +26,16 @@ export default function Vacation({ setVacationData }) {
       <Box
         onSubmit={handleConfirmVacation}
         component="form"
-        className="add-note-box"
+        className="take-vacation-box"
       >
         <Box>
           <Typography
-            style={{ margin: "2vh 0", fontSize: "1.2rem", fontWeight: "bold" }}
+            style={{
+              margin: "2vh 0",
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+              color: "#616365",
+            }}
           >
             এই ছাত্রের সম্পর্কে নোট যোগ করুন
           </Typography>

@@ -1,0 +1,9 @@
+.take-vacation-box {
+  width: 70%;
+  margin: auto;
+  padding: 2vh 2vw;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border-radius: 15px;
+  text-align: center;
+}
