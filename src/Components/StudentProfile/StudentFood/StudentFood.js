@@ -10,14 +10,55 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import "./StudentFood.css";
-
+/////////////////
+const rows = [
+  {
+    _id: 1,
+    date: new Date().toLocaleDateString("bn-bd"),
+    meal1: "",
+    meal2: "",
+    meal3: "",
+    specialMeal: "",
+    netMeal: "",
+    sumOfCost: "",
+  },
+  {
+    _id: 2,
+    date: new Date().toLocaleDateString("bn-bd"),
+    meal1: "",
+    meal2: "",
+    meal3: "",
+    specialMeal: "",
+    netMeal: "",
+    sumOfCost: "",
+  },
+  {
+    _id: 3,
+    date: new Date().toLocaleDateString("bn-bd"),
+    meal1: "",
+    meal2: "",
+    meal3: "",
+    specialMeal: "",
+    netMeal: "",
+    sumOfCost: "",
+  },
+  {
+    _id: 4,
+    date: new Date().toLocaleDateString("bn-bd"),
+    meal1: "",
+    meal2: "",
+    meal3: "",
+    specialMeal: "",
+    netMeal: "",
+    sumOfCost: "",
+  },
+];
 export default function StudentFood() {
-  /////////////////
-  const rows = [
+  const [foodData, setFoodData] = useState([
     {
       _id: 1,
       date: new Date().toLocaleDateString("bn-bd"),
@@ -58,14 +99,19 @@ export default function StudentFood() {
       netMeal: "",
       sumOfCost: "",
     },
-  ];
-  ///////////////
+  ]);
+
   const handleOnChecked = (e, id, name) => {
     const mealCheck = e.target.checked;
-    const array = rows.find((x) => x._id === id);
-    const newArray = { ...array };
-    newArray[name] = mealCheck;
-    console.log(array, newArray);
+    const object = foodData.find((x) => x._id === id);
+    const newObject = { ...object };
+    newObject[name] = mealCheck;
+    const newItem = [newObject];
+    const newFood = foodData.map((x) => {
+      const item = newItem.find(({ _id }) => _id === x._id);
+      return item ? item : x;
+    });
+    setFoodData(newFood);
   };
   return (
     <Box sx={{ width: "90%", m: "auto", my: 5 }}>
@@ -151,7 +197,7 @@ export default function StudentFood() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, i) => {
+              {foodData.map((row, i) => {
                 const { _id, date, netMeal, sumOfCost } = row;
                 return (
                   <TableRow
