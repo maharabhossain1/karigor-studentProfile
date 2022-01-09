@@ -27,6 +27,8 @@ input[type="file"] {
 }
 input::placeholder {
   text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
 }
 @media only screen and (max-width: 600px) {
   .input-field input {

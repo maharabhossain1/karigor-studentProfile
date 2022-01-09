@@ -16,28 +16,57 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 import "./StudentFood.css";
 
 export default function StudentFood() {
+  /////////////////
   const rows = [
     {
       _id: 1,
-      studentName: "Jubair Ahsan",
-      amount: "25",
+      date: new Date().toLocaleDateString("bn-bd"),
+      meal1: "",
+      meal2: "",
+      meal3: "",
+      specialMeal: "",
+      netMeal: "",
+      sumOfCost: "",
     },
     {
       _id: 2,
-      studentName: "Jubair Ahsan",
-      amount: "25",
+      date: new Date().toLocaleDateString("bn-bd"),
+      meal1: "",
+      meal2: "",
+      meal3: "",
+      specialMeal: "",
+      netMeal: "",
+      sumOfCost: "",
     },
     {
       _id: 3,
-      studentName: "Jubair Ahsan",
-      amount: "25",
+      date: new Date().toLocaleDateString("bn-bd"),
+      meal1: "",
+      meal2: "",
+      meal3: "",
+      specialMeal: "",
+      netMeal: "",
+      sumOfCost: "",
     },
     {
       _id: 4,
-      studentName: "Jubair Ahsan",
-      amount: "25",
+      date: new Date().toLocaleDateString("bn-bd"),
+      meal1: "",
+      meal2: "",
+      meal3: "",
+      specialMeal: "",
+      netMeal: "",
+      sumOfCost: "",
     },
   ];
+  ///////////////
+  const handleOnChecked = (e, id, name) => {
+    const mealCheck = e.target.checked;
+    const array = rows.find((x) => x._id === id);
+    const newArray = { ...array };
+    newArray[name] = mealCheck;
+    console.log(array, newArray);
+  };
   return (
     <Box sx={{ width: "90%", m: "auto", my: 5 }}>
       <Box sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}>
@@ -123,7 +152,7 @@ export default function StudentFood() {
             </TableHead>
             <TableBody>
               {rows.map((row, i) => {
-                const date = new Date().toLocaleDateString("bn-bd");
+                const { _id, date, netMeal, sumOfCost } = row;
                 return (
                   <TableRow
                     key={i}
@@ -133,23 +162,35 @@ export default function StudentFood() {
                   >
                     <TableCell align="center">{date}</TableCell>
                     <TableCell align="center">
-                      <Checkbox color="success" />
+                      <Checkbox
+                        name="meal1"
+                        onChange={(e) => handleOnChecked(e, _id, e.target.name)}
+                        color="success"
+                      />
                     </TableCell>
                     <TableCell align="center">
-                      <Checkbox color="success" />
+                      <Checkbox
+                        name="meal2"
+                        onChange={(e) => handleOnChecked(e, _id, e.target.name)}
+                        color="success"
+                      />
                     </TableCell>
                     <TableCell align="center">
-                      <Checkbox color="success" />
+                      <Checkbox
+                        name="meal3"
+                        onChange={(e) => handleOnChecked(e, _id, e.target.name)}
+                        color="success"
+                      />
                     </TableCell>
                     <TableCell align="center">
-                      <Checkbox color="success" />
+                      <Checkbox
+                        name="specialMeal"
+                        onChange={(e) => handleOnChecked(e, _id, e.target.name)}
+                        color="success"
+                      />
                     </TableCell>
-                    <TableCell align="center">
-                      <Checkbox color="success" />
-                    </TableCell>
-                    <TableCell align="center">
-                      <Checkbox color="success" />
-                    </TableCell>
+                    <TableCell align="center">{netMeal}</TableCell>
+                    <TableCell align="center">{sumOfCost}</TableCell>
                     <TableCell align="center">
                       <button className="table-data-edit-btn">
                         <FiEdit />
