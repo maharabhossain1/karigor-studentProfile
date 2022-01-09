@@ -3,6 +3,7 @@ import { VscTriangleDown } from "react-icons/vsc";
 import React from "react";
 import "./StudentResult.css";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import ParticularResult from "./ParticularResult/ParticularResult";
 
 export default function StudentResult() {
   const resultArray = [
@@ -110,6 +111,9 @@ export default function StudentResult() {
             style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
           />
         </Button>
+      </Box>
+      <Box>
+        <ParticularResult />
       </Box>
     </Box>
   );
