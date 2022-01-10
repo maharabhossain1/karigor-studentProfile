@@ -20,7 +20,7 @@ export default function StudentInstituteInfo() {
   //////////////////////////
   // Input Field control
   const handleOnBlur = (e) => {
-    const field = e.target.value;
+    const field = e.target.name;
     const value = e.target.value;
     const newValue = { ...institutionInfo };
     newValue[field] = value;

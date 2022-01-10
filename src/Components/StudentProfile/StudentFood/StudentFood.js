@@ -12,9 +12,16 @@ import {
   TableRow,
 } from "@mui/material";
 import React, { useState } from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
+import { ImCross } from "react-icons/im";
 import "./StudentFood.css";
+//
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import frLocale from "date-fns/locale/fr";
+
 /////////////////
 
 export default function StudentFood() {
@@ -26,7 +33,7 @@ export default function StudentFood() {
       meal2: false,
       meal3: false,
       specialMeal: false,
-      netMeal: "",
+      netMeal: 0,
       sumOfCost: 0,
     },
     {
@@ -36,7 +43,7 @@ export default function StudentFood() {
       meal2: false,
       meal3: false,
       specialMeal: false,
-      netMeal: "",
+      netMeal: 0,
       sumOfCost: 0,
     },
     {
@@ -46,7 +53,7 @@ export default function StudentFood() {
       meal2: false,
       meal3: false,
       specialMeal: false,
-      netMeal: "",
+      netMeal: 0,
       sumOfCost: 0,
     },
     {
@@ -56,11 +63,12 @@ export default function StudentFood() {
       meal2: false,
       meal3: false,
       specialMeal: false,
-      netMeal: "",
+      netMeal: 0,
       sumOfCost: 0,
     },
   ]);
   const [change, setChange] = useState(false);
+  const [startDateValue, setStartDateValue] = React.useState(null);
 
   const handleOnChecked = (e, id, name) => {
     setChange(true);
@@ -87,17 +95,57 @@ export default function StudentFood() {
     });
     setFoodData(newFood);
   };
+  ///////// reset Form
+  const handleReset = (e) => {
+    e.preventDefault();
+    // e.target.reset();
+  };
+
+  // Input Field control
 
   return (
-    <Box sx={{ my: 10 }}>
+    <Box sx={{ my: 3 }}>
       <Grid container>
         <Grid item xs={12} md={10} sx={{ mx: "auto" }}>
-          <Box sx={{ my: 5 }}>
+          <Box component="form" sx={{ my: 1 }}>
             <Box
               sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}
             >
-              <input className="dateInput" type="date" /> থেকে{" "}
-              <input className="dateInput" type="date" />
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                locale={frLocale}
+              >
+                <DatePicker
+                  value={startDateValue}
+                  onChange={(newValue) => {
+                    setStartDateValue(newValue);
+                    console.log(startDateValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "1rem",
+                }}
+              >
+                {" "}
+                থেকে{" "}
+              </span>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                locale={frLocale}
+              >
+                <DatePicker
+                  value={startDateValue}
+                  onChange={(newValue) => {
+                    setStartDateValue(newValue);
+                    console.log(startDateValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
             </Box>
             <Box>
               <TableContainer component={Paper} sx={{ my: 5 }}>
@@ -242,14 +290,6 @@ export default function StudentFood() {
                           </TableCell>
                           <TableCell align="center">{netMeal}</TableCell>
                           <TableCell align="center">{sumOfCost}</TableCell>
-                          <TableCell align="center">
-                            <button className="table-data-edit-btn">
-                              <FiEdit />
-                            </button>
-                            <button className="table-data-delete-btn">
-                              <FiTrash2 />
-                            </button>
-                          </TableCell>
                         </TableRow>
                       );
                     })}
@@ -268,13 +308,25 @@ export default function StudentFood() {
         </Grid>
         <Grid item xs={12} md={2}>
           {change && (
-            <Box sx={{ width: "max-content", mx: "auto" }}>
-              <Button variant="contained" className="custom-save-btn">
-                <HiOutlineSave
-                  style={{ marginRight: "10px", fontSize: "1.5rem" }}
-                />{" "}
-                সেইভ করুন
-              </Button>
+            <Box>
+              <Box sx={{ width: "max-content", mx: "auto" }}>
+                <Button variant="contained" className="custom-save-btn">
+                  <HiOutlineSave
+                    style={{ marginRight: "10px", fontSize: "1.5rem" }}
+                  />{" "}
+                  সেইভ করুন
+                </Button>
+              </Box>
+              <Box sx={{ width: "max-content", mx: "auto" }}>
+                <Button
+                  type="reset"
+                  onClick={handleReset}
+                  variant="contained"
+                  className="custom-cancel-btn"
+                >
+                  <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
+                </Button>
+              </Box>
             </Box>
           )}
         </Grid>
