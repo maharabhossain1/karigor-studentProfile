@@ -15,87 +15,46 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import "./StudentFood.css";
 /////////////////
-const rows = [
-  {
-    _id: 1,
-    date: new Date().toLocaleDateString("bn-bd"),
-    meal1: "",
-    meal2: "",
-    meal3: "",
-    specialMeal: "",
-    netMeal: "",
-    sumOfCost: "",
-  },
-  {
-    _id: 2,
-    date: new Date().toLocaleDateString("bn-bd"),
-    meal1: "",
-    meal2: "",
-    meal3: "",
-    specialMeal: "",
-    netMeal: "",
-    sumOfCost: "",
-  },
-  {
-    _id: 3,
-    date: new Date().toLocaleDateString("bn-bd"),
-    meal1: "",
-    meal2: "",
-    meal3: "",
-    specialMeal: "",
-    netMeal: "",
-    sumOfCost: "",
-  },
-  {
-    _id: 4,
-    date: new Date().toLocaleDateString("bn-bd"),
-    meal1: "",
-    meal2: "",
-    meal3: "",
-    specialMeal: "",
-    netMeal: "",
-    sumOfCost: "",
-  },
-];
+
 export default function StudentFood() {
   const [foodData, setFoodData] = useState([
     {
       _id: 1,
       date: new Date().toLocaleDateString("bn-bd"),
-      meal1: "",
-      meal2: "",
-      meal3: "",
-      specialMeal: "",
+      meal1: false,
+      meal2: false,
+      meal3: true,
+      specialMeal: false,
       netMeal: "",
       sumOfCost: "",
     },
     {
       _id: 2,
       date: new Date().toLocaleDateString("bn-bd"),
-      meal1: "",
-      meal2: "",
-      meal3: "",
-      specialMeal: "",
+      meal1: false,
+      meal2: false,
+      meal3: false,
+      specialMeal: false,
       netMeal: "",
       sumOfCost: "",
     },
     {
       _id: 3,
       date: new Date().toLocaleDateString("bn-bd"),
-      meal1: "",
-      meal2: "",
-      meal3: "",
-      specialMeal: "",
+      meal1: false,
+      meal2: false,
+      meal3: true,
+      specialMeal: false,
       netMeal: "",
       sumOfCost: "",
     },
     {
       _id: 4,
       date: new Date().toLocaleDateString("bn-bd"),
-      meal1: "",
-      meal2: "",
-      meal3: "",
-      specialMeal: "",
+      meal1: true,
+      meal2: true,
+      meal3: true,
+      specialMeal: true,
       netMeal: "",
       sumOfCost: "",
     },
@@ -106,13 +65,19 @@ export default function StudentFood() {
     const object = foodData.find((x) => x._id === id);
     const newObject = { ...object };
     newObject[name] = mealCheck;
+
+    ////
     const newItem = [newObject];
+    /////
+
+    ////////////////////////////////////
     const newFood = foodData.map((x) => {
       const item = newItem.find(({ _id }) => _id === x._id);
       return item ? item : x;
     });
     setFoodData(newFood);
   };
+  console.log(foodData);
   return (
     <Box sx={{ width: "90%", m: "auto", my: 5 }}>
       <Box sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}>
@@ -198,7 +163,16 @@ export default function StudentFood() {
             </TableHead>
             <TableBody>
               {foodData.map((row, i) => {
-                const { _id, date, netMeal, sumOfCost } = row;
+                const {
+                  _id,
+                  date,
+                  netMeal,
+                  sumOfCost,
+                  meal1,
+                  meal2,
+                  meal3,
+                  specialMeal,
+                } = row;
                 return (
                   <TableRow
                     key={i}
@@ -209,6 +183,7 @@ export default function StudentFood() {
                     <TableCell align="center">{date}</TableCell>
                     <TableCell align="center">
                       <Checkbox
+                        checked={meal1}
                         name="meal1"
                         onChange={(e) => handleOnChecked(e, _id, e.target.name)}
                         color="success"
@@ -216,6 +191,7 @@ export default function StudentFood() {
                     </TableCell>
                     <TableCell align="center">
                       <Checkbox
+                        checked={meal2}
                         name="meal2"
                         onChange={(e) => handleOnChecked(e, _id, e.target.name)}
                         color="success"
@@ -223,6 +199,7 @@ export default function StudentFood() {
                     </TableCell>
                     <TableCell align="center">
                       <Checkbox
+                        checked={meal3}
                         name="meal3"
                         onChange={(e) => handleOnChecked(e, _id, e.target.name)}
                         color="success"
@@ -230,6 +207,7 @@ export default function StudentFood() {
                     </TableCell>
                     <TableCell align="center">
                       <Checkbox
+                        checked={specialMeal}
                         name="specialMeal"
                         onChange={(e) => handleOnChecked(e, _id, e.target.name)}
                         color="success"
