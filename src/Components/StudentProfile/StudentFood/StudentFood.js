@@ -21,21 +21,25 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import frLocale from "date-fns/locale/bn";
+import { FiEdit } from "react-icons/fi";
 
 /////////////////
 
 export default function StudentFood() {
   const [foodData, setFoodData] = useState([]);
-  const [change, setChange] = useState(false);
+  const [reset, setReset] = useState(false);
+  const [editOption, setEditOption] = useState(true);
   const [startDateValue, setStartDateValue] = React.useState(new Date());
   //////// DATA FETCH
   useEffect(() => {
     fetch("/foodData.json")
       .then((res) => res.json())
-      .then((data) => setFoodData(data));
-  }, []);
+      .then((data) => {
+        setFoodData(data);
+        setReset(false);
+      });
+  }, [reset]);
   const handleOnChecked = (e, id) => {
-    setChange(true);
     const mealCheck = e.target.checked;
     const name = e.target.name;
     const object = foodData.find((x) => x._id === id);
@@ -86,19 +90,21 @@ export default function StudentFood() {
     });
     setFoodData(newFood);
   };
-  //// slecet all control function
-  const handleSelectAll = (e) => {};
+
   ///////// reset Form
   const handleReset = (e) => {
-    e.preventDefault();
-    // e.target.reset();
+    setReset(true);
+    setEditOption(true);
+  };
+  const handleEdit = (e) => {
+    setEditOption(false);
   };
   console.log(startDateValue.toLocaleDateString("bn-bd"));
   return (
     <Box sx={{ my: 3 }}>
       <Grid container>
         <Grid item xs={12} md={10} sx={{ mx: "auto" }}>
-          <Box component="form" sx={{ my: 1 }}>
+          <Box sx={{ my: 1 }}>
             <Box
               sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}
             >
@@ -250,7 +256,7 @@ export default function StudentFood() {
                           <TableCell align="center">{date}</TableCell>
                           <TableCell align="center">
                             <Checkbox
-                              disabled={false}
+                              disabled={editOption}
                               name="selectAll"
                               onChange={(e) => handleOnChecked(e, _id)}
                               color="success"
@@ -258,6 +264,7 @@ export default function StudentFood() {
                           </TableCell>
                           <TableCell align="center">
                             <Checkbox
+                              disabled={editOption}
                               checked={meal1}
                               name="meal1"
                               value={meal1Price}
@@ -267,6 +274,7 @@ export default function StudentFood() {
                           </TableCell>
                           <TableCell align="center">
                             <Checkbox
+                              disabled={editOption}
                               checked={meal2}
                               name="meal2"
                               value={meal2Price}
@@ -276,6 +284,7 @@ export default function StudentFood() {
                           </TableCell>
                           <TableCell align="center">
                             <Checkbox
+                              disabled={editOption}
                               checked={meal3}
                               name="meal3"
                               value={meal3Price}
@@ -285,6 +294,7 @@ export default function StudentFood() {
                           </TableCell>
                           <TableCell align="center">
                             <Checkbox
+                              disabled={editOption}
                               checked={specialMeal}
                               name="specialMeal"
                               onChange={(e) => handleOnChecked(e, _id)}
@@ -311,28 +321,38 @@ export default function StudentFood() {
           </Box>
         </Grid>
         <Grid item xs={12} md={2}>
-          {change && (
-            <Box>
-              <Box sx={{ width: "max-content", mx: "auto" }}>
-                <Button variant="contained" className="custom-save-btn">
-                  <HiOutlineSave
-                    style={{ marginRight: "10px", fontSize: "1.5rem" }}
-                  />{" "}
-                  সেইভ করুন
-                </Button>
-              </Box>
-              <Box sx={{ width: "max-content", mx: "auto" }}>
+          <Box>
+            <Box sx={{ width: "max-content", mx: "auto" }}>
+              {editOption ? (
                 <Button
-                  type="reset"
+                  onClick={handleEdit}
+                  variant="contained"
+                  className="custom-edit-btn"
+                >
+                  <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
+                  এডিট করুন
+                </Button>
+              ) : (
+                <Button
                   onClick={handleReset}
                   variant="contained"
                   className="custom-cancel-btn"
                 >
                   <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
                 </Button>
-              </Box>
+              )}
             </Box>
-          )}
+            <Box sx={{ width: "max-content", mx: "auto" }}>
+              {!editOption && (
+                <Button variant="contained" className="custom-save-btn">
+                  <HiOutlineSave
+                    style={{ marginRight: "10px", fontSize: "1.5rem" }}
+                  />{" "}
+                  সেইভ করুন
+                </Button>
+              )}
+            </Box>
+          </Box>
         </Grid>
       </Grid>
     </Box>
