@@ -32,6 +32,9 @@ export default function StudentFood() {
   const [editOption, setEditOption] = useState(true);
   const [startDateValue, setStartDateValue] = React.useState(new Date());
   const [endDateValue, setEndDateValue] = React.useState(new Date());
+  /// pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage, setDataPerPage] = useState(5);
   //////// DATA FETCH
   useEffect(() => {
     fetch("/foodData.json")
@@ -116,7 +119,13 @@ export default function StudentFood() {
     const newFoodData = foodData.slice(indexOfStartDate, indexOfEndDate + 1);
     setRangeFoodData(newFoodData);
   };
-
+  ///// pagination calculation
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstdata = indexOfLastData - dataPerPage;
+  const currentFoodData = rangeFoodData.slice(
+    indexOfFirstdata,
+    indexOfLastData
+  );
   return (
     <Box sx={{ my: 3 }}>
       <Grid container>
@@ -253,7 +262,7 @@ export default function StudentFood() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rangeFoodData.map((row, i) => {
+                    {currentFoodData.map((row, i) => {
                       const {
                         _id,
                         date,
