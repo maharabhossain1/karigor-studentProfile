@@ -11,7 +11,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
 import { ImCross } from "react-icons/im";
 import "./StudentFood.css";
@@ -20,72 +20,63 @@ import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-import frLocale from "date-fns/locale/fr";
+import frLocale from "date-fns/locale/bn";
 
 /////////////////
 
 export default function StudentFood() {
-  const [foodData, setFoodData] = useState([
-    {
-      _id: 1,
-      date: new Date().toLocaleDateString("bn-bd"),
-      meal1: false,
-      meal2: false,
-      meal3: false,
-      specialMeal: false,
-      netMeal: 0,
-      sumOfCost: 0,
-    },
-    {
-      _id: 2,
-      date: new Date().toLocaleDateString("bn-bd"),
-      meal1: false,
-      meal2: false,
-      meal3: false,
-      specialMeal: false,
-      netMeal: 0,
-      sumOfCost: 0,
-    },
-    {
-      _id: 3,
-      date: new Date().toLocaleDateString("bn-bd"),
-      meal1: false,
-      meal2: false,
-      meal3: false,
-      specialMeal: false,
-      netMeal: 0,
-      sumOfCost: 0,
-    },
-    {
-      _id: 4,
-      date: new Date().toLocaleDateString("bn-bd"),
-      meal1: false,
-      meal2: false,
-      meal3: false,
-      specialMeal: false,
-      netMeal: 0,
-      sumOfCost: 0,
-    },
-  ]);
+  const [foodData, setFoodData] = useState([]);
   const [change, setChange] = useState(false);
-  const [startDateValue, setStartDateValue] = React.useState(null);
-
-  const handleOnChecked = (e, id, name) => {
+  const [startDateValue, setStartDateValue] = React.useState(new Date());
+  //////// DATA FETCH
+  useEffect(() => {
+    fetch("/foodData.json")
+      .then((res) => res.json())
+      .then((data) => setFoodData(data));
+  }, []);
+  const handleOnChecked = (e, id) => {
     setChange(true);
     const mealCheck = e.target.checked;
+    const name = e.target.name;
     const object = foodData.find((x) => x._id === id);
     const newObject = { ...object };
-    newObject[name] = mealCheck;
-    ////
-    const mealPrice = e.target.value;
-    //// meal price adding and checked value calculation
-    if (mealCheck) {
-      newObject.sumOfCost = Number(mealPrice) + Number(newObject.sumOfCost);
-      newObject.netMeal = Number(newObject.netMeal) + 1;
+    if (name === "selectAll") {
+      if (mealCheck) {
+        newObject.meal1 = mealCheck;
+        newObject.meal2 = mealCheck;
+        newObject.meal3 = mealCheck;
+        newObject.specialMeal = mealCheck;
+        // sum of cost
+        const sumOfPrice =
+          Number(newObject.meal1Price) +
+          Number(newObject.meal2Price) +
+          Number(newObject.meal3Price) +
+          Number(newObject.specialMealPrice);
+        newObject.sumOfCost = Number(sumOfPrice);
+        //  sum of selected meals
+        newObject.netMeal = 4;
+      } else {
+        newObject.meal1 = false;
+        newObject.meal2 = false;
+        newObject.meal3 = false;
+        newObject.specialMeal = false;
+        newObject.sumOfCost = 0;
+        newObject.netMeal = 0;
+      }
     } else {
-      newObject.sumOfCost = Number(newObject.sumOfCost) - Number(mealPrice);
-      newObject.netMeal = Number(newObject.netMeal) - 1;
+      newObject[name] = mealCheck;
+      ////
+      const mealPrice = e.target.value;
+      //// meal price adding and checked value calculation
+      if (mealCheck) {
+        newObject.sumOfCost = Number(mealPrice) + Number(newObject.sumOfCost);
+        newObject.netMeal = Number(newObject.netMeal) + 1;
+      } else {
+        newObject.sumOfCost = Number(newObject.sumOfCost) - Number(mealPrice);
+        newObject.netMeal = Number(newObject.netMeal) - 1;
+      }
     }
+
     ////
     const newItem = [newObject];
     ////////////////////////////////////
@@ -95,14 +86,14 @@ export default function StudentFood() {
     });
     setFoodData(newFood);
   };
+  //// slecet all control function
+  const handleSelectAll = (e) => {};
   ///////// reset Form
   const handleReset = (e) => {
     e.preventDefault();
     // e.target.reset();
   };
-
-  // Input Field control
-
+  console.log(startDateValue.toLocaleDateString("bn-bd"));
   return (
     <Box sx={{ my: 3 }}>
       <Grid container>
@@ -119,7 +110,6 @@ export default function StudentFood() {
                   value={startDateValue}
                   onChange={(newValue) => {
                     setStartDateValue(newValue);
-                    console.log(startDateValue);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -161,6 +151,16 @@ export default function StudentFood() {
                         align="center"
                       >
                         তারিখ
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontSize: "1rem",
+                          fontWeight: "bold",
+                          color: "#616365",
+                        }}
+                        align="center"
+                      >
+                        সিলেক্ট অল
                       </TableCell>
                       <TableCell
                         sx={{
@@ -235,6 +235,10 @@ export default function StudentFood() {
                         meal2,
                         meal3,
                         specialMeal,
+                        meal1Price,
+                        meal2Price,
+                        meal3Price,
+                        specialMealPrice,
                       } = row;
                       return (
                         <TableRow
@@ -246,12 +250,18 @@ export default function StudentFood() {
                           <TableCell align="center">{date}</TableCell>
                           <TableCell align="center">
                             <Checkbox
+                              disabled={false}
+                              name="selectAll"
+                              onChange={(e) => handleOnChecked(e, _id)}
+                              color="success"
+                            />
+                          </TableCell>
+                          <TableCell align="center">
+                            <Checkbox
                               checked={meal1}
                               name="meal1"
-                              value={60}
-                              onChange={(e) =>
-                                handleOnChecked(e, _id, e.target.name)
-                              }
+                              value={meal1Price}
+                              onChange={(e) => handleOnChecked(e, _id)}
                               color="success"
                             />
                           </TableCell>
@@ -259,10 +269,8 @@ export default function StudentFood() {
                             <Checkbox
                               checked={meal2}
                               name="meal2"
-                              value={60}
-                              onChange={(e) =>
-                                handleOnChecked(e, _id, e.target.name)
-                              }
+                              value={meal2Price}
+                              onChange={(e) => handleOnChecked(e, _id)}
                               color="success"
                             />
                           </TableCell>
@@ -270,10 +278,8 @@ export default function StudentFood() {
                             <Checkbox
                               checked={meal3}
                               name="meal3"
-                              value={60}
-                              onChange={(e) =>
-                                handleOnChecked(e, _id, e.target.name)
-                              }
+                              value={meal3Price}
+                              onChange={(e) => handleOnChecked(e, _id)}
                               color="success"
                             />
                           </TableCell>
@@ -281,11 +287,9 @@ export default function StudentFood() {
                             <Checkbox
                               checked={specialMeal}
                               name="specialMeal"
-                              onChange={(e) =>
-                                handleOnChecked(e, _id, e.target.name)
-                              }
+                              onChange={(e) => handleOnChecked(e, _id)}
                               color="success"
-                              value={120}
+                              value={specialMealPrice}
                             />
                           </TableCell>
                           <TableCell align="center">{netMeal}</TableCell>
