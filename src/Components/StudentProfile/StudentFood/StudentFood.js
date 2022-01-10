@@ -27,15 +27,18 @@ import { FiEdit } from "react-icons/fi";
 
 export default function StudentFood() {
   const [foodData, setFoodData] = useState([]);
+  const [rangeFoodData, setRangeFoodData] = useState([]);
   const [reset, setReset] = useState(false);
   const [editOption, setEditOption] = useState(true);
   const [startDateValue, setStartDateValue] = React.useState(new Date());
+  const [endDateValue, setEndDateValue] = React.useState(new Date());
   //////// DATA FETCH
   useEffect(() => {
     fetch("/foodData.json")
       .then((res) => res.json())
       .then((data) => {
         setFoodData(data);
+        setRangeFoodData(data);
         setReset(false);
       });
   }, [reset]);
@@ -99,7 +102,21 @@ export default function StudentFood() {
   const handleEdit = (e) => {
     setEditOption(false);
   };
-  console.log(startDateValue.toLocaleDateString("bn-bd"));
+
+  ////////////////////
+  const handleDateRange = (e) => {
+    const startRange = startDateValue.toLocaleDateString("bn-bd");
+    const endRange = endDateValue.toLocaleDateString("bn-bd");
+    const indexOfStartDate = foodData.findIndex(
+      (object) => object.date === startRange
+    );
+    const indexOfEndDate = foodData.findIndex(
+      (object) => object.date === endRange
+    );
+    const newFoodData = foodData.slice(indexOfStartDate, indexOfEndDate + 1);
+    setRangeFoodData(newFoodData);
+  };
+
   return (
     <Box sx={{ my: 3 }}>
       <Grid container>
@@ -126,22 +143,27 @@ export default function StudentFood() {
                   padding: "1rem",
                 }}
               >
-                {" "}
-                থেকে{" "}
+                থেকে
               </span>
               <LocalizationProvider
                 dateAdapter={AdapterDateFns}
                 locale={frLocale}
               >
                 <DatePicker
-                  value={startDateValue}
+                  value={endDateValue}
                   onChange={(newValue) => {
-                    setStartDateValue(newValue);
-                    console.log(startDateValue);
+                    setEndDateValue(newValue);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
+              <Button
+                onClick={handleDateRange}
+                variant="contained"
+                style={{ margin: "0px 10px" }}
+              >
+                Confirm
+              </Button>
             </Box>
             <Box>
               <TableContainer component={Paper} sx={{ my: 5 }}>
@@ -231,7 +253,7 @@ export default function StudentFood() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {foodData.map((row, i) => {
+                    {rangeFoodData.map((row, i) => {
                       const {
                         _id,
                         date,
