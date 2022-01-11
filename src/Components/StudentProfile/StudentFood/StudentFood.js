@@ -3,6 +3,7 @@ import {
   Button,
   Checkbox,
   Grid,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -126,6 +127,10 @@ export default function StudentFood() {
     indexOfFirstdata,
     indexOfLastData
   );
+  const pageCount = Math.ceil(rangeFoodData.length / dataPerPage);
+  const handlePagination = (e, value) => {
+    setCurrentPage(value);
+  };
   return (
     <Box sx={{ my: 3 }}>
       <Grid container>
@@ -341,13 +346,14 @@ export default function StudentFood() {
                   </TableBody>
                 </Table>
               </TableContainer>
-            </Box>
-            <Box>
-              <Button className="custom-btn-backward" variant="contained">
-                <HiOutlineArrowLeft
-                  style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+              <Box sx={{}}>
+                <Pagination
+                  sx={{ width: "maxContent" }}
+                  count={pageCount}
+                  page={currentPage}
+                  onChange={handlePagination}
                 />
-              </Button>
+              </Box>
             </Box>
           </Box>
         </Grid>
@@ -386,6 +392,13 @@ export default function StudentFood() {
           </Box>
         </Grid>
       </Grid>
+      <Box sx={{ my: 5 }}>
+        <Button className="custom-btn-backward" variant="contained">
+          <HiOutlineArrowLeft
+            style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+          />
+        </Button>
+      </Box>
     </Box>
   );
 }
