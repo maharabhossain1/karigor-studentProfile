@@ -1,0 +1,32 @@
+[
+  {
+    "BirthCertificateNumber": "12345678",
+    "NIDNumber": "1234567890",
+    "accommodation": "অনাবাসিক",
+    "address": "Chittagong,bangladesh",
+    "admissionDate": "2022-01-12",
+    "admissionFee": "50000",
+    "admissionTestMarks": "600",
+    "birthday": "1999-07-22",
+    "bloodGroup": "o-",
+    "district": "চট্টগ্রাম",
+    "division": "চট্টগ্রাম",
+    "fatherName": "Ayin Kazi",
+    "financialStatus": "আংশিক",
+    "gender": "পুরুষ",
+    "hallSeatID": "1234",
+    "hallSelection": "Suhrawardy Hall",
+    "mobileNumber": "01631884850",
+    "motherName": "Farhana",
+    "nationality": "Musilm",
+    "scholarshipFromMadrasa": "No",
+    "session": "2018-2019",
+    "studentClass": "10",
+    "studentName": "Kazi Jamal",
+    "studentNameArabic": "Maharab",
+    "studentNameEnglish": "Kazi Jamal",
+    "studentRoll": "19294057",
+    "subClass": "NO",
+    "upazila": "Chittagong"
+  }
+]

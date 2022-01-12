@@ -35,7 +35,7 @@ export default function StudentFood() {
   const [endDateValue, setEndDateValue] = React.useState(new Date());
   /// pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage, setDataPerPage] = useState(5);
+  const [dataPerPage] = useState(5);
   //////// DATA FETCH
   useEffect(() => {
     fetch("/foodData.json")
@@ -46,10 +46,11 @@ export default function StudentFood() {
         setReset(false);
       });
   }, [reset]);
+  ////////////////////
   const handleOnChecked = (e, id) => {
     const mealCheck = e.target.checked;
     const name = e.target.name;
-    const object = foodData.find((x) => x._id === id);
+    const object = rangeFoodData.find((x) => x._id === id);
     const newObject = { ...object };
     if (name === "selectAll") {
       if (mealCheck) {
@@ -96,9 +97,13 @@ export default function StudentFood() {
       return item ? item : x;
     });
     setFoodData(newFood);
+    /// for range food data
+    const newRangeFood = rangeFoodData.map((x) => {
+      const item = newItem.find(({ _id }) => _id === x._id);
+      return item ? item : x;
+    });
+    setRangeFoodData(newRangeFood);
   };
-
-  ///////// reset Form
   const handleReset = (e) => {
     setReset(true);
     setEditOption(true);
@@ -121,12 +126,15 @@ export default function StudentFood() {
     setRangeFoodData(newFoodData);
   };
   ///// pagination calculation
-  const indexOfLastData = currentPage * dataPerPage;
-  const indexOfFirstdata = indexOfLastData - dataPerPage;
-  const currentFoodData = rangeFoodData.slice(
-    indexOfFirstdata,
-    indexOfLastData
-  );
+  // const indexOfLastData = currentPage * dataPerPage;
+  // const indexOfFirstdata = indexOfLastData - dataPerPage;
+  // const currentFoodData = rangeFoodData.slice(
+  //   indexOfFirstdata,
+  //   indexOfLastData
+  // );
+  // useEffect(() => {
+  //   setCurrentDataPerPage(currentFoodData);
+  // }, [currentFoodData]);
   const pageCount = Math.ceil(rangeFoodData.length / dataPerPage);
   const handlePagination = (e, value) => {
     setCurrentPage(value);
@@ -267,7 +275,7 @@ export default function StudentFood() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {currentFoodData.map((row, i) => {
+                    {rangeFoodData.map((row, i) => {
                       const {
                         _id,
                         date,

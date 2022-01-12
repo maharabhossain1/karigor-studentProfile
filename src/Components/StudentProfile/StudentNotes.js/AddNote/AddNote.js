@@ -2,12 +2,12 @@ import { Box, Typography, Button } from "@mui/material";
 import React, { useState } from "react";
 import "./AddNote.css";
 
-export default function AddNote({ setAddNotes }) {
-  const basicInfo = {
+export default function AddNote({ setAddNotes, notesData, setNotesData }) {
+  const [noteText, setNoteText] = useState({
     studentId: Math.random(),
-    date: "10/12/2022",
-  };
-  const [noteText, setNoteText] = useState(basicInfo);
+    studentName: "জুবায়ের আহমেদ",
+    date: new Date().toLocaleDateString("bn-bd"),
+  });
   // for canceling adding note process
   const handleCancelNote = () => {
     setAddNotes(false);
@@ -24,6 +24,7 @@ export default function AddNote({ setAddNotes }) {
   const handleConfimAdd = (e) => {
     e.preventDefault();
     setAddNotes(false);
+    setNotesData([...notesData, noteText]);
   };
   return (
     <div className="modal-background">
