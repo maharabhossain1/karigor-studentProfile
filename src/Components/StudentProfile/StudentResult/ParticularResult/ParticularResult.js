@@ -90,14 +90,6 @@ export default function ParticularResult() {
                     <TableCell align="center">{studentName}</TableCell>
                     <TableCell align="center">{type}</TableCell>
                     <TableCell align="center">{amount}</TableCell>
-                    <TableCell align="center">
-                      <button className="table-data-edit-btn">
-                        <FiEdit />
-                      </button>
-                      <button className="table-data-delete-btn">
-                        <FiTrash2 />
-                      </button>
-                    </TableCell>
                   </TableRow>
                 );
               })}

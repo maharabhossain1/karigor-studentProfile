@@ -200,14 +200,6 @@ export default function StudentHall() {
                     }}
                   >
                     <TableCell align="center">{date}</TableCell>
-                    <TableCell align="center">
-                      <button className="table-data-edit-btn">
-                        <FiEdit />
-                      </button>
-                      <button className="table-data-delete-btn">
-                        <FiTrash2 />
-                      </button>
-                    </TableCell>
                   </TableRow>
                 );
               })}

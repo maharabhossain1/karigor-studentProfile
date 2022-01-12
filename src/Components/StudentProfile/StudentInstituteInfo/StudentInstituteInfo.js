@@ -1,6 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
@@ -8,13 +8,24 @@ import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
 export default function StudentInstituteInfo() {
   const [institutionInfo, setInstitutionInfo] = useState("");
   const [editOption, setEditOption] = useState(true);
+  const [reset, setReset] = useState(false);
 
+  //
+  useEffect(() => {
+    fetch("/studentData.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setInstitutionInfo(...data);
+        setReset(false);
+      });
+  }, [reset]);
   //////////////////////////
   // Edit Butoons
   const handleEdit = () => {
     setEditOption(false);
   };
   const handleCancelEdit = () => {
+    setReset(true);
     setEditOption(true);
   };
   //////////////////////////
@@ -121,6 +132,7 @@ export default function StudentInstituteInfo() {
                         <div>
                           <label htmlFor="text">{label}</label>
                           <input
+                            disabled={editOption}
                             onBlur={handleOnBlur}
                             defaultValue={institutionInfo[inputs.name] || ""}
                             {...others}
@@ -140,6 +152,7 @@ export default function StudentInstituteInfo() {
                         <div>
                           <label htmlFor="text">{label}</label>
                           <input
+                            disabled={editOption}
                             onBlur={handleOnBlur}
                             defaultValue={institutionInfo[inputs.name] || ""}
                             {...others}

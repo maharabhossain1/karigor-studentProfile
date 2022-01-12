@@ -26,11 +26,10 @@
 input[type="file"] {
   color: #008ad9;
 }
-input::placeholder {
-  /* text-align: center; */
-  /* font-size: 0.8rem; */
+/* input::placeholder {
+  text-align: center;
   font-weight: bold;
-}
+} */
 .input-field input:disabled {
   border: hidden;
 }

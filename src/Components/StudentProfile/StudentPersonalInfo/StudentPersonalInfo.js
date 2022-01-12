@@ -29,7 +29,6 @@ export default function StudentPersonalInfo() {
   const handleCancelEdit = (e) => {
     setReset(true);
     setEditOption(true);
-    window.location.reload();
   };
   //////////////////////////
   // Input Field control
@@ -233,134 +232,132 @@ export default function StudentPersonalInfo() {
   ];
   return (
     <Box sx={{ my: 5 }}>
-      <form>
-        <Grid container>
-          <Grid item xs={12} md={11} sx={{ mx: "auto" }}>
-            <Box>
-              <Grid container spacing={1}>
-                <Grid item xs={12} md={6} sx={{ mx: "auto" }}>
-                  <Box className="student-info">
-                    <Box
-                      sx={{
-                        display: {
-                          xs: "block",
-                          md: "flex",
-                        },
-                        mb: 5,
-                      }}
-                    >
-                      <Box sx={{ width: "165px" }}>
-                        <Typography
-                          style={{
-                            fontsize: "1rem",
-                            fontWeight: "bold",
-                            color: "#616365",
-                            padding: "1vh 1vw",
-                          }}
-                        >
-                          ছাত্রের ছবি
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          width: "max-content",
-                          m: "auto",
-                          border: "1px solid #e5e5e5",
+      <Grid container>
+        <Grid item xs={12} md={11} sx={{ mx: "auto" }}>
+          <Box>
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={6} sx={{ mx: "auto" }}>
+                <Box className="student-info">
+                  <Box
+                    sx={{
+                      display: {
+                        xs: "block",
+                        md: "flex",
+                      },
+                      mb: 5,
+                    }}
+                  >
+                    <Box sx={{ width: "165px" }}>
+                      <Typography
+                        style={{
+                          fontsize: "1rem",
+                          fontWeight: "bold",
+                          color: "#616365",
+                          padding: "1vh 1vw",
                         }}
                       >
-                        <img
-                          style={{ height: "20vh" }}
-                          src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-                          alt="student"
-                        />
-                      </Box>
+                        ছাত্রের ছবি
+                      </Typography>
                     </Box>
-                    {inputArray.map((inputs) => {
-                      const { label, id, ...others } = inputs;
-                      return (
-                        <div className="input-field" key={id}>
-                          <div>
-                            <label htmlFor="text">{label}</label>
-                            <input
-                              disabled={editOption}
-                              onBlur={handleOnBlur}
-                              defaultValue={studentInfo[inputs.name] || ""}
-                              {...others}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
+                    <Box
+                      sx={{
+                        width: "max-content",
+                        m: "auto",
+                        border: "1px solid #e5e5e5",
+                      }}
+                    >
+                      <img
+                        style={{ height: "20vh" }}
+                        src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                        alt="student"
+                      />
+                    </Box>
                   </Box>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Box className="student-info">
-                    {inputArray2.map((inputs) => {
-                      const { label, id, ...others } = inputs;
-                      return (
-                        <div className="input-field" key={id}>
-                          <div>
-                            <label htmlFor="text">{label}</label>
-                            <input
-                              disabled={editOption}
-                              onBlur={handleOnBlur}
-                              defaultValue={studentInfo[inputs.name] || ""}
-                              {...others}
-                            />
-                          </div>
+                  {inputArray.map((inputs) => {
+                    const { label, id, ...others } = inputs;
+                    return (
+                      <div className="input-field" key={id}>
+                        <div>
+                          <label htmlFor="text">{label}</label>
+                          <input
+                            disabled={editOption}
+                            onBlur={handleOnBlur}
+                            defaultValue={studentInfo[inputs.name] || ""}
+                            {...others}
+                          />
                         </div>
-                      );
-                    })}
-                  </Box>
-                </Grid>
+                      </div>
+                    );
+                  })}
+                </Box>
               </Grid>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={1} sx={{ mx: "auto" }}>
-            <Box sx={{ width: "max-content", mx: "auto" }}>
-              {editOption ? (
-                <Button
-                  onClick={handleEdit}
-                  variant="contained"
-                  className="custom-edit-btn"
-                >
-                  <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
-                  এডিট করুন
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleCancelEdit}
-                  variant="contained"
-                  className="custom-cancel-btn"
-                >
-                  <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
-                </Button>
-              )}
-            </Box>
-            <Box sx={{ width: "max-content", mx: "auto" }}>
-              {!editOption && (
-                <Button
-                  onClick={handleEdit}
-                  variant="contained"
-                  className="custom-save-btn"
-                >
-                  <HiOutlineSave
-                    style={{ marginRight: "10px", fontSize: "1.5rem" }}
-                  />{" "}
-                  সেইভ করুন
-                </Button>
-              )}
-            </Box>
-          </Grid>
+              <Grid item xs={12} md={6}>
+                <Box className="student-info">
+                  {inputArray2.map((inputs) => {
+                    const { label, id, ...others } = inputs;
+                    return (
+                      <div className="input-field" key={id}>
+                        <div>
+                          <label htmlFor="text">{label}</label>
+                          <input
+                            disabled={editOption}
+                            onBlur={handleOnBlur}
+                            defaultValue={studentInfo[inputs.name] || ""}
+                            {...others}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
         </Grid>
-        <Box>
-          <Button className="custom-btn-backward" variant="contained">
-            <HiOutlineArrowLeft
-              style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
-            />
-          </Button>
-        </Box>
-      </form>
+        <Grid item xs={12} md={1} sx={{ mx: "auto" }}>
+          <Box sx={{ width: "max-content", mx: "auto" }}>
+            {editOption ? (
+              <Button
+                onClick={handleEdit}
+                variant="contained"
+                className="custom-edit-btn"
+              >
+                <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
+                এডিট করুন
+              </Button>
+            ) : (
+              <Button
+                onClick={handleCancelEdit}
+                variant="contained"
+                className="custom-cancel-btn"
+              >
+                <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
+              </Button>
+            )}
+          </Box>
+          <Box sx={{ width: "max-content", mx: "auto" }}>
+            {!editOption && (
+              <Button
+                onClick={handleEdit}
+                variant="contained"
+                className="custom-save-btn"
+              >
+                <HiOutlineSave
+                  style={{ marginRight: "10px", fontSize: "1.5rem" }}
+                />{" "}
+                সেইভ করুন
+              </Button>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
+      <Box>
+        <Button className="custom-btn-backward" variant="contained">
+          <HiOutlineArrowLeft
+            style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+          />
+        </Button>
+      </Box>
     </Box>
   );
 }
