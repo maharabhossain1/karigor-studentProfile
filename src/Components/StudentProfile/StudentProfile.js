@@ -1,49 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import StudentPersonalInfo from "./StudentPersonalInfo/StudentPersonalInfo";
-import StudentInstituteInfo from "./StudentInstituteInfo/StudentInstituteInfo";
-import StudentResult from "./StudentResult/StudentResult";
-import StudentTransaction from "./StudentTransaction/StudentTransaction";
-import StudentFood from "./StudentFood/StudentFood";
-import StudentHall from "./StudentHall/StudentHall";
-import StudentNotes from "./StudentNotes.js/StudentNotes";
-
-//// helper functions
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box>
-          <Box>{children}</Box>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+import { Link, Outlet } from "react-router-dom";
 
 /////////////////////////////////////////
 // main component
@@ -54,42 +13,40 @@ export default function StudentProfile() {
     {
       _id: 1,
       label: "ব্যক্তিগত তথ্য",
+      pathName: "personalInfo",
     },
     {
       _id: 2,
       label: "প্রাতিষ্ঠানিক তথ্য",
+      pathName: "instituionInfo",
     },
     {
       _id: 3,
       label: "ফলাফল",
+      pathName: "result",
     },
     {
       _id: 4,
       label: "লেনদেন",
+      pathName: "transaction",
     },
     {
       _id: 5,
       label: "খাবার",
+      pathName: "food",
     },
     {
       _id: 6,
       label: "হল",
+      pathName: "hall",
     },
     {
       _id: 7,
       label: "নোটস",
+      pathName: "notes",
     },
   ];
 
-  const componentList = [
-    <StudentPersonalInfo />,
-    <StudentInstituteInfo />,
-    <StudentResult />,
-    <StudentTransaction />,
-    <StudentFood />,
-    <StudentHall />,
-    <StudentNotes />,
-  ];
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -104,19 +61,16 @@ export default function StudentProfile() {
         >
           {tabList.map((tab, i) => (
             <Tab
+              component={Link}
+              to={tab.pathName}
               key={tab._id}
               style={{ fontWeight: "bold" }}
               label={tab.label}
-              {...a11yProps(i)}
             />
           ))}
         </Tabs>
       </Box>
-      {componentList.map((component, i) => (
-        <TabPanel key={i} value={value} index={i}>
-          {component}
-        </TabPanel>
-      ))}
+      <Outlet />
     </Box>
   );
 }
