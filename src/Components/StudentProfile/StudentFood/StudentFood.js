@@ -12,7 +12,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
 import { ImCross } from "react-icons/im";
 import "./StudentFood.css";
@@ -29,13 +29,14 @@ import { FiEdit } from "react-icons/fi";
 export default function StudentFood() {
   const [foodData, setFoodData] = useState([]);
   const [rangeFoodData, setRangeFoodData] = useState([]);
-  const [reset, setReset] = useState(false);
+  // const [reset, setReset] = useState(false);
   const [editOption, setEditOption] = useState(true);
   const [startDateValue, setStartDateValue] = React.useState(new Date());
   const [endDateValue, setEndDateValue] = React.useState(new Date());
   /// pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(5);
+  const studentFoodData = useRef();
   //////// DATA FETCH
   useEffect(() => {
     fetch("/foodData.json")
@@ -43,9 +44,9 @@ export default function StudentFood() {
       .then((data) => {
         setFoodData(data);
         setRangeFoodData(data);
-        setReset(false);
+        // setReset(false);
       });
-  }, [reset]);
+  }, []);
   ////////////////////
   const handleOnChecked = (e, id) => {
     const mealCheck = e.target.checked;
@@ -105,8 +106,9 @@ export default function StudentFood() {
     setRangeFoodData(newRangeFood);
   };
   const handleReset = (e) => {
-    setReset(true);
+    // setReset(true);
     setEditOption(true);
+    studentFoodData.current.reset();
   };
   const handleEdit = (e) => {
     setEditOption(false);
@@ -141,272 +143,276 @@ export default function StudentFood() {
   };
   return (
     <Box sx={{ my: 3 }}>
-      <Grid container>
-        <Grid item xs={12} md={10} sx={{ mx: "auto" }}>
-          <Box sx={{ my: 1 }}>
-            <Box
-              sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}
-            >
-              <LocalizationProvider
-                dateAdapter={AdapterDateFns}
-                locale={frLocale}
+      <form ref={studentFoodData}>
+        <Grid container>
+          <Grid item xs={12} md={10} sx={{ mx: "auto" }}>
+            <Box sx={{ my: 1 }}>
+              <Box
+                sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}
               >
-                <DatePicker
-                  value={startDateValue}
-                  onChange={(newValue) => {
-                    setStartDateValue(newValue);
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  locale={frLocale}
+                >
+                  <DatePicker
+                    value={startDateValue}
+                    onChange={(newValue) => {
+                      setStartDateValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+                <span
+                  style={{
+                    display: "inline-block",
+                    padding: "1rem",
                   }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-              <span
-                style={{
-                  display: "inline-block",
-                  padding: "1rem",
-                }}
-              >
-                থেকে
-              </span>
-              <LocalizationProvider
-                dateAdapter={AdapterDateFns}
-                locale={frLocale}
-              >
-                <DatePicker
-                  value={endDateValue}
-                  onChange={(newValue) => {
-                    setEndDateValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-              <Button
-                onClick={handleDateRange}
-                variant="contained"
-                style={{ margin: "0px 10px" }}
-              >
-                Confirm
-              </Button>
-            </Box>
-            <Box>
-              <TableContainer component={Paper} sx={{ my: 5 }}>
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        তারিখ
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        সিলেক্ট অল
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        মিল-১
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        মিল-২
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        মিল-৩
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        স্পেশাল মিল
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        মোট মিল
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          fontSize: "1rem",
-                          fontWeight: "bold",
-                          color: "#616365",
-                        }}
-                        align="center"
-                      >
-                        মোট খরচ{" "}
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rangeFoodData.map((row, i) => {
-                      const {
-                        _id,
-                        date,
-                        netMeal,
-                        sumOfCost,
-                        meal1,
-                        meal2,
-                        meal3,
-                        specialMeal,
-                        meal1Price,
-                        meal2Price,
-                        meal3Price,
-                        specialMealPrice,
-                      } = row;
-                      return (
-                        <TableRow
-                          key={i}
+                >
+                  থেকে
+                </span>
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  locale={frLocale}
+                >
+                  <DatePicker
+                    value={endDateValue}
+                    onChange={(newValue) => {
+                      setEndDateValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+                <Button
+                  onClick={handleDateRange}
+                  variant="contained"
+                  style={{ margin: "0px 10px" }}
+                >
+                  Confirm
+                </Button>
+              </Box>
+              <Box>
+                <TableContainer component={Paper} sx={{ my: 5 }}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell
                           sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
                           }}
+                          align="center"
                         >
-                          <TableCell align="center">{date}</TableCell>
-                          <TableCell align="center">
-                            <Checkbox
-                              disabled={editOption}
-                              name="selectAll"
-                              onChange={(e) => handleOnChecked(e, _id)}
-                              color="success"
-                            />
-                          </TableCell>
-                          <TableCell align="center">
-                            <Checkbox
-                              disabled={editOption}
-                              checked={meal1}
-                              name="meal1"
-                              value={meal1Price}
-                              onChange={(e) => handleOnChecked(e, _id)}
-                              color="success"
-                            />
-                          </TableCell>
-                          <TableCell align="center">
-                            <Checkbox
-                              disabled={editOption}
-                              checked={meal2}
-                              name="meal2"
-                              value={meal2Price}
-                              onChange={(e) => handleOnChecked(e, _id)}
-                              color="success"
-                            />
-                          </TableCell>
-                          <TableCell align="center">
-                            <Checkbox
-                              disabled={editOption}
-                              checked={meal3}
-                              name="meal3"
-                              value={meal3Price}
-                              onChange={(e) => handleOnChecked(e, _id)}
-                              color="success"
-                            />
-                          </TableCell>
-                          <TableCell align="center">
-                            <Checkbox
-                              disabled={editOption}
-                              checked={specialMeal}
-                              name="specialMeal"
-                              onChange={(e) => handleOnChecked(e, _id)}
-                              color="success"
-                              value={specialMealPrice}
-                            />
-                          </TableCell>
-                          <TableCell align="center">{netMeal}</TableCell>
-                          <TableCell align="center">{sumOfCost}</TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <Box sx={{}}>
-                <Pagination
-                  sx={{ width: "maxContent" }}
-                  count={pageCount}
-                  page={currentPage}
-                  onChange={handlePagination}
-                />
+                          তারিখ
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
+                          }}
+                          align="center"
+                        >
+                          সিলেক্ট অল
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
+                          }}
+                          align="center"
+                        >
+                          মিল-১
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
+                          }}
+                          align="center"
+                        >
+                          মিল-২
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
+                          }}
+                          align="center"
+                        >
+                          মিল-৩
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
+                          }}
+                          align="center"
+                        >
+                          স্পেশাল মিল
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
+                          }}
+                          align="center"
+                        >
+                          মোট মিল
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: "1rem",
+                            fontWeight: "bold",
+                            color: "#616365",
+                          }}
+                          align="center"
+                        >
+                          মোট খরচ{" "}
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {rangeFoodData.map((row, i) => {
+                        const {
+                          _id,
+                          date,
+                          netMeal,
+                          sumOfCost,
+                          meal1,
+                          meal2,
+                          meal3,
+                          specialMeal,
+                          meal1Price,
+                          meal2Price,
+                          meal3Price,
+                          specialMealPrice,
+                        } = row;
+                        return (
+                          <TableRow
+                            key={i}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell align="center">{date}</TableCell>
+                            <TableCell align="center">
+                              <Checkbox
+                                disabled={editOption}
+                                name="selectAll"
+                                onChange={(e) => handleOnChecked(e, _id)}
+                                color="success"
+                              />
+                            </TableCell>
+                            <TableCell align="center">
+                              <Checkbox
+                                disabled={editOption}
+                                checked={meal1}
+                                name="meal1"
+                                value={meal1Price}
+                                onChange={(e) => handleOnChecked(e, _id)}
+                                color="success"
+                              />
+                            </TableCell>
+                            <TableCell align="center">
+                              <Checkbox
+                                disabled={editOption}
+                                checked={meal2}
+                                name="meal2"
+                                value={meal2Price}
+                                onChange={(e) => handleOnChecked(e, _id)}
+                                color="success"
+                              />
+                            </TableCell>
+                            <TableCell align="center">
+                              <Checkbox
+                                disabled={editOption}
+                                checked={meal3}
+                                name="meal3"
+                                value={meal3Price}
+                                onChange={(e) => handleOnChecked(e, _id)}
+                                color="success"
+                              />
+                            </TableCell>
+                            <TableCell align="center">
+                              <Checkbox
+                                disabled={editOption}
+                                checked={specialMeal}
+                                name="specialMeal"
+                                onChange={(e) => handleOnChecked(e, _id)}
+                                color="success"
+                                value={specialMealPrice}
+                              />
+                            </TableCell>
+                            <TableCell align="center">{netMeal}</TableCell>
+                            <TableCell align="center">{sumOfCost}</TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <Box sx={{}}>
+                  <Pagination
+                    sx={{ width: "maxContent" }}
+                    count={pageCount}
+                    page={currentPage}
+                    onChange={handlePagination}
+                  />
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={2}>
-          <Box>
-            <Box sx={{ width: "max-content", mx: "auto" }}>
-              {editOption ? (
-                <Button
-                  onClick={handleEdit}
-                  variant="contained"
-                  className="custom-edit-btn"
-                >
-                  <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
-                  এডিট করুন
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleReset}
-                  variant="contained"
-                  className="custom-cancel-btn"
-                >
-                  <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
-                </Button>
-              )}
+          </Grid>
+          <Grid item xs={12} md={2}>
+            <Box>
+              <Box sx={{ width: "max-content", mx: "auto" }}>
+                {editOption ? (
+                  <Button
+                    onClick={handleEdit}
+                    variant="contained"
+                    className="custom-edit-btn"
+                  >
+                    <FiEdit
+                      style={{ marginRight: "10px", fontSize: "1.3rem" }}
+                    />{" "}
+                    এডিট করুন
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleReset}
+                    variant="contained"
+                    className="custom-cancel-btn"
+                  >
+                    <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
+                  </Button>
+                )}
+              </Box>
+              <Box sx={{ width: "max-content", mx: "auto" }}>
+                {!editOption && (
+                  <Button variant="contained" className="custom-save-btn">
+                    <HiOutlineSave
+                      style={{ marginRight: "10px", fontSize: "1.5rem" }}
+                    />{" "}
+                    সেইভ করুন
+                  </Button>
+                )}
+              </Box>
             </Box>
-            <Box sx={{ width: "max-content", mx: "auto" }}>
-              {!editOption && (
-                <Button variant="contained" className="custom-save-btn">
-                  <HiOutlineSave
-                    style={{ marginRight: "10px", fontSize: "1.5rem" }}
-                  />{" "}
-                  সেইভ করুন
-                </Button>
-              )}
-            </Box>
-          </Box>
+          </Grid>
         </Grid>
-      </Grid>
-      <Box sx={{ my: 5 }}>
-        <Button className="custom-btn-backward" variant="contained">
-          <HiOutlineArrowLeft
-            style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
-          />
-        </Button>
-      </Box>
+        <Box sx={{ my: 5 }}>
+          <Button className="custom-btn-backward" variant="contained">
+            <HiOutlineArrowLeft
+              style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+            />
+          </Button>
+        </Box>
+      </form>
     </Box>
   );
 }

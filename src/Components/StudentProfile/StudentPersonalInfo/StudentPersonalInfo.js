@@ -28,6 +28,7 @@ export default function StudentPersonalInfo() {
   const handleCancelEdit = (e) => {
     setEditOption(true);
     formRef.current.reset();
+    console.log(formRef.current);
   };
   //////////////////////////
   // Input Field control
@@ -277,15 +278,34 @@ export default function StudentPersonalInfo() {
                       const { label, id, ...others } = inputs;
                       return (
                         <div className="input-field" key={id}>
-                          <div>
-                            <label htmlFor="text">{label}</label>
-                            <input
-                              disabled={editOption}
-                              onChange={handleOnChange}
-                              defaultValue={studentInfo[inputs.name] || ""}
-                              {...others}
-                            />
-                          </div>
+                          {others.type === "select" ? (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <select
+                                id="custom-select"
+                                disabled={editOption}
+                                name={others.name}
+                                onChange={handleOnChange}
+                              >
+                                <option value=""> Select an Option</option>
+                                {others.options.map((option, i) => (
+                                  <option key={i} value={option}>
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          ) : (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <input
+                                disabled={editOption}
+                                onChange={handleOnChange}
+                                defaultValue={studentInfo[inputs.name] || ""}
+                                {...others}
+                              />
+                            </div>
+                          )}
                         </div>
                       );
                     })}
@@ -297,15 +317,42 @@ export default function StudentPersonalInfo() {
                       const { label, id, ...others } = inputs;
                       return (
                         <div className="input-field" key={id}>
-                          <div>
-                            <label htmlFor="text">{label}</label>
-                            <input
-                              disabled={editOption}
-                              onChange={handleOnChange}
-                              defaultValue={studentInfo[inputs.name] || ""}
-                              {...others}
-                            />
-                          </div>
+                          {others.type === "select" ? (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <select
+                                id="custom-select"
+                                disabled={editOption}
+                                name={others.name}
+                                onChange={handleOnChange}
+                              >
+                                <option value=""> Select an Option</option>
+                                {others.options.map((option, i) => (
+                                  <option
+                                    key={i}
+                                    value={option}
+                                    selected={
+                                      studentInfo[inputs.name] === option
+                                        ? "selected"
+                                        : ""
+                                    }
+                                  >
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          ) : (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <input
+                                disabled={editOption}
+                                onChange={handleOnChange}
+                                defaultValue={studentInfo[inputs.name] || ""}
+                                {...others}
+                              />
+                            </div>
+                          )}
                         </div>
                       );
                     })}

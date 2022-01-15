@@ -1,6 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
@@ -8,7 +8,7 @@ import { HiOutlineArrowLeft, HiOutlineSave } from "react-icons/hi";
 export default function StudentInstituteInfo() {
   const [institutionInfo, setInstitutionInfo] = useState("");
   const [editOption, setEditOption] = useState(true);
-  const [reset, setReset] = useState(false);
+  const studentInstituteInfoRef = useRef();
 
   //
   useEffect(() => {
@@ -16,21 +16,21 @@ export default function StudentInstituteInfo() {
       .then((res) => res.json())
       .then((data) => {
         setInstitutionInfo(...data);
-        setReset(false);
       });
-  }, [reset]);
+  }, []);
   //////////////////////////
   // Edit Butoons
   const handleEdit = () => {
     setEditOption(false);
   };
-  const handleCancelEdit = () => {
-    setReset(true);
+  const handleCancelEdit = (e) => {
     setEditOption(true);
+    studentInstituteInfoRef.current.reset();
+    console.log(studentInstituteInfoRef.current);
   };
   //////////////////////////
   // Input Field control
-  const handleOnBlur = (e) => {
+  const handleOnChange = (e) => {
     const field = e.target.name;
     const value = e.target.value;
     const newValue = { ...institutionInfo };
@@ -43,9 +43,8 @@ export default function StudentInstituteInfo() {
       label: "ক্লাস",
       name: "studentClass",
       type: "select",
-      options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
       placeholder: "Student Class",
-      required: "required",
     },
     {
       id: 2,
@@ -53,7 +52,6 @@ export default function StudentInstituteInfo() {
       name: "admissionDate",
       type: "date",
       placeholder: "Admission Date",
-      required: "required",
     },
     {
       id: 3,
@@ -61,7 +59,6 @@ export default function StudentInstituteInfo() {
       name: "admissionTestMarks",
       type: "number",
       placeholder: "Admission Test Marks",
-      required: "required",
     },
     {
       id: 4,
@@ -69,7 +66,6 @@ export default function StudentInstituteInfo() {
       name: "admissionFee",
       type: "number",
       placeholder: "Admission Fee",
-      required: "required",
     },
     {
       id: 5,
@@ -119,97 +115,157 @@ export default function StudentInstituteInfo() {
 
   return (
     <Box sx={{ my: 5 }}>
-      <Grid container>
-        <Grid item xs={12} md={11} sx={{ mx: "auto" }}>
-          <Box>
-            <Grid container spacing={1}>
-              <Grid item xs={12} md={6} sx={{ mx: "auto" }}>
-                <Box className="student-info">
-                  {inputArray.map((inputs) => {
-                    const { label, id, ...others } = inputs;
-                    return (
-                      <div className="input-field" key={id}>
-                        <div>
-                          <label htmlFor="text">{label}</label>
-                          <input
-                            disabled={editOption}
-                            onBlur={handleOnBlur}
-                            defaultValue={institutionInfo[inputs.name] || ""}
-                            {...others}
-                          />
+      <form ref={studentInstituteInfoRef}>
+        <Grid container>
+          <Grid item xs={12} md={11} sx={{ mx: "auto" }}>
+            <Box>
+              <Grid container spacing={1}>
+                <Grid item xs={12} md={6} sx={{ mx: "auto" }}>
+                  <Box className="student-info">
+                    {inputArray.map((inputs) => {
+                      const { label, id, ...others } = inputs;
+                      return (
+                        <div className="input-field" key={id}>
+                          {others.type === "select" ? (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <select
+                                id="custom-select"
+                                disabled={editOption}
+                                name={others.name}
+                                onChange={handleOnChange}
+                              >
+                                <option value=""> Select an Option</option>
+                                {others.options.map((option, i) => (
+                                  <option
+                                    key={i}
+                                    value={option}
+                                    selected={
+                                      institutionInfo[inputs.name] === option
+                                        ? "selected"
+                                        : ""
+                                    }
+                                  >
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          ) : (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <input
+                                disabled={editOption}
+                                onChange={handleOnChange}
+                                defaultValue={
+                                  institutionInfo[inputs.name] || ""
+                                }
+                                {...others}
+                              />
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    );
-                  })}
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Box className="student-info">
-                  {inputArray2.map((inputs) => {
-                    const { label, id, ...others } = inputs;
-                    return (
-                      <div className="input-field" key={id}>
-                        <div>
-                          <label htmlFor="text">{label}</label>
-                          <input
-                            disabled={editOption}
-                            onBlur={handleOnBlur}
-                            defaultValue={institutionInfo[inputs.name] || ""}
-                            {...others}
-                          />
+                      );
+                    })}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box className="student-info">
+                    {inputArray2.map((inputs) => {
+                      const { label, id, ...others } = inputs;
+                      return (
+                        <div className="input-field" key={id}>
+                          {others.type === "select" ? (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <select
+                                id="custom-select"
+                                disabled={editOption}
+                                name={others.name}
+                                onChange={handleOnChange}
+                              >
+                                <option value=""> Select an Option</option>
+                                {others.options.map((option, i) => (
+                                  <option
+                                    key={i}
+                                    value={option}
+                                    selected={
+                                      institutionInfo[inputs.name] === option
+                                        ? "selected"
+                                        : ""
+                                    }
+                                  >
+                                    {option}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          ) : (
+                            <div>
+                              <label htmlFor="text">{label}</label>
+                              <input
+                                disabled={editOption}
+                                onChange={handleOnChange}
+                                defaultValue={
+                                  institutionInfo[inputs.name] || ""
+                                }
+                                {...others}
+                              />
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    );
-                  })}
-                </Box>
+                      );
+                    })}
+                  </Box>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={1} sx={{ mx: "auto" }}>
+            <Box sx={{ width: "max-content", mx: "auto" }}>
+              {editOption ? (
+                <Button
+                  onClick={handleEdit}
+                  variant="contained"
+                  className="custom-edit-btn"
+                >
+                  <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
+                  এডিট করুন
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleCancelEdit}
+                  variant="contained"
+                  className="custom-cancel-btn"
+                >
+                  <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
+                </Button>
+              )}
+            </Box>
+            <Box sx={{ width: "max-content", mx: "auto" }}>
+              {!editOption && (
+                <Button
+                  onClick={handleEdit}
+                  variant="contained"
+                  className="custom-save-btn"
+                >
+                  <HiOutlineSave
+                    style={{ marginRight: "10px", fontSize: "1.5rem" }}
+                  />{" "}
+                  সেইভ করুন
+                </Button>
+              )}
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={1} sx={{ mx: "auto" }}>
-          <Box sx={{ width: "max-content", mx: "auto" }}>
-            {editOption ? (
-              <Button
-                onClick={handleEdit}
-                variant="contained"
-                className="custom-edit-btn"
-              >
-                <FiEdit style={{ marginRight: "10px", fontSize: "1.3rem" }} />{" "}
-                এডিট করুন
-              </Button>
-            ) : (
-              <Button
-                onClick={handleCancelEdit}
-                variant="contained"
-                className="custom-cancel-btn"
-              >
-                <ImCross style={{ marginRight: "10px" }} /> বাতিল করুন
-              </Button>
-            )}
-          </Box>
-          <Box sx={{ width: "max-content", mx: "auto" }}>
-            {!editOption && (
-              <Button
-                onClick={handleEdit}
-                variant="contained"
-                className="custom-save-btn"
-              >
-                <HiOutlineSave
-                  style={{ marginRight: "10px", fontSize: "1.5rem" }}
-                />{" "}
-                সেইভ করুন
-              </Button>
-            )}
-          </Box>
-        </Grid>
-      </Grid>
-      <Box>
-        <Button className="custom-btn-backward" variant="contained">
-          <HiOutlineArrowLeft
-            style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
-          />
-        </Button>
-      </Box>
+        <Box>
+          <Button className="custom-btn-backward" variant="contained">
+            <HiOutlineArrowLeft
+              style={{ verticalAlign: "middle", fontSize: "1.5rem" }}
+            />
+          </Button>
+        </Box>
+      </form>
     </Box>
   );
 }

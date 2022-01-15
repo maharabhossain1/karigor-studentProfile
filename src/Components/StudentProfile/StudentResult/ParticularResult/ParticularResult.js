@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "@mui/material";
 import React from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
 export default function ParticularResult() {

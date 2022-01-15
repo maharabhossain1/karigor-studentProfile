@@ -1,3 +1,6 @@
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import frLocale from "date-fns/locale/bn";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {
   Box,
   Button,
@@ -9,17 +12,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
 
 import React, { useState } from "react";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
 import ChangeHall from "./ChangeHall/ChangeHall";
 import Vacation from "./Vacation/Vacation";
 
 export default function StudentHall() {
   const [vacationData, setVacationData] = useState(false);
   const [hall, setHall] = useState(false);
+  const [startDateValue, setStartDateValue] = React.useState(new Date());
+  const [endDateValue, setEndDateValue] = React.useState(new Date());
   const handleVacation = () => {
     setVacationData(true);
   };
@@ -119,8 +124,39 @@ export default function StudentHall() {
         </Grid>
       </Box>
       <Box sx={{ fontSize: "1rem", fontWeight: "bold", color: "#616365" }}>
-        <input className="dateInput" type="date" /> থেকে{" "}
-        <input className="dateInput" type="date" />
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
+          <DatePicker
+            value={startDateValue}
+            onChange={(newValue) => {
+              setStartDateValue(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+        <span
+          style={{
+            display: "inline-block",
+            padding: "1rem",
+          }}
+        >
+          থেকে
+        </span>
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
+          <DatePicker
+            value={endDateValue}
+            onChange={(newValue) => {
+              setEndDateValue(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+        <Button
+          // onClick={handleDateRange}
+          variant="contained"
+          style={{ margin: "0px 10px" }}
+        >
+          Confirm
+        </Button>
       </Box>
       <Box>
         <TableContainer component={Paper} sx={{ my: 5 }}>
