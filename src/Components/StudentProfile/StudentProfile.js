@@ -5,9 +5,21 @@ import Box from "@mui/material/Box";
 import { Link, Outlet } from "react-router-dom";
 
 /////////////////////////////////////////
-// main component
+//////
+
+const currentTab = () => {
+  let path = window.location.pathname;
+  if (path === "/studentprofile/personalInfo") return 0;
+  else if (path === "/studentprofile/instituionInfo") return 1;
+  else if (path === "/studentprofile/result") return 2;
+  else if (path === "/studentprofile/transaction") return 3;
+  else if (path === "/studentprofile/food") return 4;
+  else if (path === "/studentprofile/hall") return 5;
+  else if (path === "/studentprofile/notes") return 6;
+};
+//////
 export default function StudentProfile() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(currentTab);
 
   const tabList = [
     {

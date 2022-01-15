@@ -15,6 +15,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/studentprofile" />} />
+          <Route
+            path="/studentprofile"
+            element={<Navigate to="personalInfo" />}
+          />
           <Route path="studentprofile/*" element={<StudentProfileSection />}>
             <Route path="personalInfo" element={<StudentPersonalInfo />} />
             <Route path="instituionInfo" element={<StudentInstituteInfo />} />
