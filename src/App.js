@@ -8,14 +8,18 @@ import StudentPersonalInfo from "./Components/StudentProfile/StudentPersonalInfo
 import StudentResult from "./Components/StudentProfile/StudentResult/StudentResult";
 import StudentTransaction from "./Components/StudentProfile/StudentTransaction/StudentTransaction";
 import StudentProfileSection from "./Pages/StudentProfileSection/index";
+import MultipleSelection from "./Pages/MultipleSelection/index";
+import { ThemeProvider } from "@mui/material";
+import theme from "./assests/theme";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/studentprofile" />} />
-          <Route
+    <ThemeProvider theme={theme}>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MultipleSelection />} />
+            {/* <Route
             path="/studentprofile"
             element={<Navigate to="personalInfo" />}
           />
@@ -27,10 +31,11 @@ function App() {
             <Route path="food" element={<StudentFood />} />
             <Route path="hall" element={<StudentHall />} />
             <Route path="notes" element={<StudentNotes />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+          </Route> */}
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </ThemeProvider>
   );
 }
 
