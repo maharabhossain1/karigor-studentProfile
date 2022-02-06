@@ -28,31 +28,30 @@ export default function MultipleSelect() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
-        <Select
-          multiple
-          displayEmpty
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput />}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return <em>Placeholder</em>;
-            }
+      <Select
+        sx={{ m: 1, width: 300, mt: 3 }}
+        multiple
+        displayEmpty
+        value={personName}
+        onChange={handleChange}
+        input={<OutlinedInput />}
+        renderValue={(selected) => {
+          if (selected.length === 0) {
+            return <em>Placeholder</em>;
+          }
 
-            return selected.join(", ");
-          }}
-        >
-          <MenuItem disabled value="">
-            <em>Placeholder</em>
+          return selected.join(", ");
+        }}
+      >
+        <MenuItem disabled value="">
+          <em>Placeholder</em>
+        </MenuItem>
+        {names.map((name) => (
+          <MenuItem key={name} value={name}>
+            {name}
           </MenuItem>
-          {names.map((name) => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+        ))}
+      </Select>
     </div>
   );
 }
